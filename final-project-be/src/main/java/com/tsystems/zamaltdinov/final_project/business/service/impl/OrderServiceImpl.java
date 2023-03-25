@@ -17,9 +17,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void deleteById(UUID id) {
-
-    }
+    public void deleteById(UUID id) {}
 
     @Override
     public Optional<OrderDTO> update(UUID id, OrderDTO order) {

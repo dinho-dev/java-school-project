@@ -31,7 +31,7 @@ public class OrderController {
         return orderService.findAllOrders();
     }
     @GetMapping("/{id}")
-    public ResponseEntity<OrderDTO> getClientById(@PathVariable("id") UUID id) {
+    public ResponseEntity<OrderDTO> getOrderById(@PathVariable("id") UUID id) {
         Optional<OrderDTO> orderData = orderService.findById(id);
 
         if (orderData.isPresent()) {
@@ -42,7 +42,7 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<OrderDTO> createClient(@RequestBody OrderDTO order) {
+    public ResponseEntity<OrderDTO> createOrder(@RequestBody OrderDTO order) {
         try {
             OrderDTO _client = orderService.save(order);
             return new ResponseEntity<>(_client, HttpStatus.CREATED);
@@ -52,7 +52,7 @@ public class OrderController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<OrderDTO> updateClient(@PathVariable("id") UUID id, @RequestBody OrderDTO order) {
+    public ResponseEntity<OrderDTO> updateOrder(@PathVariable("id") UUID id, @RequestBody OrderDTO order) {
         Optional<OrderDTO> orderData = orderService
                 .update(id, order);
 
@@ -64,7 +64,7 @@ public class OrderController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deleteClient(@PathVariable("id") UUID id) {
+    public ResponseEntity<HttpStatus> deleteOrder(@PathVariable("id") UUID id) {
         try {
             orderService.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
