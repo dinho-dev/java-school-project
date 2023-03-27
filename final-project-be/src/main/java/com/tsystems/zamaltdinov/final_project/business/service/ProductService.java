@@ -1,17 +1,22 @@
 package com.tsystems.zamaltdinov.final_project.business.service;
 
-import com.tsystems.zamaltdinov.final_project.transactional.entity.ProductEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import com.tsystems.zamaltdinov.final_project.business.dto.ProductDTO;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
-public interface ProductService extends JpaRepository<ProductEntity, UUID> {
-    /*List<ProductEntity>findTopBy*/
-   /* @Query*/
-    /*над методом*/
-    /*jpql cинтаксис*/
+public interface ProductService {
+    Optional<ProductDTO> findById(UUID id);
+    void deleteById(UUID id);
+
+    Optional<ProductDTO> update(UUID id, ProductDTO productDTO);
+
+
+    ProductDTO save(ProductDTO productDTO);
+
+    List<ProductDTO> findAllProducts();
+
 }
 
     /*User findFirstByOrderByLastnameAsc();

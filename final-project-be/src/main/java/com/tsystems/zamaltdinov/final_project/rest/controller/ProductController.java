@@ -1,9 +1,9 @@
 package com.tsystems.zamaltdinov.final_project.rest.controller;
 
-import com.tsystems.zamaltdinov.final_project.business.dto.OrderDTO;
 import com.tsystems.zamaltdinov.final_project.business.dto.ProductDTO;
-import com.tsystems.zamaltdinov.final_project.business.service.OrderService;
 import com.tsystems.zamaltdinov.final_project.business.service.ProductService;
+import com.tsystems.zamaltdinov.final_project.transactional.entity.ProductEntity;
+import com.tsystems.zamaltdinov.final_project.transactional.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,48 +18,58 @@ import java.util.UUID;
 @RequestMapping("/api/v1/products")
 public class ProductController {
     @Autowired
-    OrderService orderService;
+    ProductService productService;
     @GetMapping
-    public List<OrderDTO> findAllOrders() {
-        return orderService.findAllOrders();
+    public List<ProductDTO> findAllProducts() {
+        List <ProductDTO> productsTest = productService.findAllProducts();
+        System.out.println(productsTest);
+        return productService.findAllProducts();
     }
     @GetMapping("/{id}")
-    public ResponseEntity<OrderDTO> getClientById(@PathVariable("id") UUID id) {
-        Optional<OrderDTO> orderData = orderService.findById(id);
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable("id") UUID id) {
+        Optional<ProductDTO> productData = productService.findById(id);
 
-        if (orderData.isPresent()) {
-            return new ResponseEntity<>(orderData.get(), HttpStatus.OK);
+        if (productData.isPresent()) {
+            return new ResponseEntity<>(productData.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @PostMapping
-    public ResponseEntity<OrderDTO> createClient(@RequestBody OrderDTO order) {
+    public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
         try {
-            OrderDTO _client = orderService.save(order);
-            return new ResponseEntity<>(_client, HttpStatus.CREATED);
+            ProductDTO _product = productService.save(productDTO);
+            return new ResponseEntity<>(_product, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    // TODO: create add to cart order
+    @PostMapping("/{id}/add-to-cart")
+    public ResponseEntity<HttpStatus> addToCart(@PathVariable("id") UUID id) {
+        try {
+            ProductDTO productDTO = productService.findById(id).get();
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     @PutMapping("/{id}")
-    public ResponseEntity<OrderDTO> updateClient(@PathVariable("id") UUID id, @RequestBody OrderDTO order) {
-        Optional<OrderDTO> orderData = orderService
-                .update(id, order);
+    public ResponseEntity<ProductDTO> updateProduct(@PathVariable("id") UUID id, @RequestBody ProductDTO productDTO) {
+        Optional<ProductDTO> productData = productService.update(id, productDTO);
 
-        if (orderData.isPresent()) {
-            return new ResponseEntity<>(orderData.get(), HttpStatus.OK);
+        if (productData.isPresent()) {
+            return new ResponseEntity<>(productData.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deleteClient(@PathVariable("id") UUID id) {
+    public ResponseEntity<HttpStatus> deleteProduct(@PathVariable("id") UUID id) {
         try {
-            orderService.deleteById(id);
+            productService.deleteById(id);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

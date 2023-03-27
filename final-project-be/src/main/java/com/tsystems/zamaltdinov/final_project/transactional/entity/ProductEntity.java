@@ -42,9 +42,7 @@ public class ProductEntity {
     public ProductEntity() {
     }
 
-    public ProductEntity(UUID id, Integer categoryId, String title, Integer price, String parameters, String weight,
-                         String volume, Integer quantityInStock, Collection<OrderProductEntity> orderProductsById,
-                         CategoryEntity categoryByCategoryId) {
+    public ProductEntity(UUID id, Integer categoryId, String title, Integer price, String parameters, String weight, String volume, Integer quantityInStock, Collection<OrderProductEntity> orderProductsById, CategoryEntity categoryByCategoryId) {
         this.id = id;
         this.categoryId = categoryId;
         this.title = title;
