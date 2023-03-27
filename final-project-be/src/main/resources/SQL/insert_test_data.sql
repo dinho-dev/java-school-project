@@ -109,6 +109,11 @@ VALUES ('4e4ffcfe-aa27-11ed-afa1-0242ac120002', 'Apple MacBook Pro', 1500, 1, '1
        ('4e500b46-aa27-11ed-afa1-0242ac120002', 'Google Pixel 6', 700, 2, '6.4 inch, 128GB, 5G',
         '6.7oz', '6.3x2.9x0.3 in', '30');
 
+INSERT INTO store.order_product (order_id, product_id)
+VALUES ('44235aac-aa25-11ed-afa1-0242ac120002', '4e4ffcfe-aa27-11ed-afa1-0242ac120002'),
+       ('44235aac-aa25-11ed-afa1-0242ac120002', '4e50033a-aa27-11ed-afa1-0242ac120002'),
+       ('44235f3e-aa25-11ed-afa1-0242ac120002', '4e500b46-aa27-11ed-afa1-0242ac120002');
+
 INSERT INTO store.employee (id, name, surname, date_of_birth, email_address, password)
 VALUES ('7d247b2c-aa27-11ed-afa1-0242ac120002', 'Roberta', 'Hood', '1980-01-01', 'robertahood@gmail.com', 'password1'),
        ('7d247dd4-aa27-11ed-afa1-0242ac120002', 'Harry', 'Barnett', '1990-05-15', 'harrybarnett@gmail.com',
