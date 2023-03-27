@@ -6,13 +6,8 @@ import com.tsystems.zamaltdinov.final_project.business.service.ClientService;
 import com.tsystems.zamaltdinov.final_project.business.dto.ClientDTO;
 import com.tsystems.zamaltdinov.final_project.transactional.entity.ClientEntity;
 import com.tsystems.zamaltdinov.final_project.transactional.repository.ClientRepository;
-import jakarta.ws.rs.client.Client;
-import jakarta.ws.rs.client.Entity;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
