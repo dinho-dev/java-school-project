@@ -1,19 +1,19 @@
-INSERT INTO store.client (id, name, surname, date_of_birth, email_address, password)
-VALUES ('aa5366f0-aa25-11ed-afa1-0242ac120002', 'John', 'Doe', '1990-01-01', 'johndoe@email.com', 'password123'),
-       ('aa536f42-aa25-11ed-afa1-0242ac120002', 'Jane', 'Smith', '1992-03-05', 'janesmith@email.com', 'password456'),
-       ('aa537104-aa25-11ed-afa1-0242ac120002', 'Jim', 'Brown', '1989-12-25', 'jimbrown@email.com', 'password789'),
+INSERT INTO store.client (id, name, surname, date_of_birth, email_address, password, app_user_role)
+VALUES ('aa5366f0-aa25-11ed-afa1-0242ac120002', 'John', 'Doe', '1990-01-01', 'johndoe@email.com', 'password123', 'ADMIN'),
+       ('aa536f42-aa25-11ed-afa1-0242ac120002', 'Jane', 'Smith', '1992-03-05', 'janesmith@email.com', 'password456', 'USER'),
+       ('aa537104-aa25-11ed-afa1-0242ac120002', 'Jim', 'Brown', '1989-12-25', 'jimbrown@email.com', 'password789', 'USER'),
        ('aa5373e0-aa25-11ed-afa1-0242ac120002', 'Sarah', 'Johnson', '1995-07-15', 'sarahjohnson@email.com',
-        'password453'),
-       ('aa53756c-aa25-11ed-afa1-0242ac120002', 'Michael', 'Lee', '1987-09-21', 'michaellee@email.com', 'password199'),
+        'password453', 'USER'),
+       ('aa53756c-aa25-11ed-afa1-0242ac120002', 'Michael', 'Lee', '1987-09-21', 'michaellee@email.com', 'password199', 'USER'),
        ('aa5376a6-aa25-11ed-afa1-0242ac120002', 'Emily', 'Wilson', '1998-05-12', 'emilywilson@email.com',
-        'password544'),
+        'password544', 'USER'),
        ('aa53780c-aa25-11ed-afa1-0242ac120002', 'William', 'Jones', '1985-03-28', 'williamjones@email.com',
-        'password128'),
+        'password128', 'USER'),
        ('aa53792e-aa25-11ed-afa1-0242ac120002', 'Grace', 'Miller', '1991-11-03', 'gracemiller@email.com',
-        'password387'),
-       ('aa537a6c-aa25-11ed-afa1-0242ac120002', 'David', 'Davis', '1999-01-25', 'daviddavis@email.com', 'password512'),
+        'password387', 'USER'),
+       ('aa537a6c-aa25-11ed-afa1-0242ac120002', 'David', 'Davis', '1999-01-25', 'daviddavis@email.com', 'password512', 'USER'),
        ('aa537b8e-aa25-11ed-afa1-0242ac120002', 'Linda', 'Wilson', '1988-12-05', 'lindawilson@email.com',
-        'password831');
+        'password831', 'USER');
 
 INSERT INTO store.address (id, client_id, country, city, postal_code, street, home, apartment)
 VALUES ('cdf71b60-aa25-11ed-afa1-0242ac120002', 'aa5366f0-aa25-11ed-afa1-0242ac120002', 'USA', 'New York', '10001',
@@ -113,6 +113,18 @@ INSERT INTO store.order_product (order_id, product_id)
 VALUES ('44235aac-aa25-11ed-afa1-0242ac120002', '4e4ffcfe-aa27-11ed-afa1-0242ac120002'),
        ('44235aac-aa25-11ed-afa1-0242ac120002', '4e50033a-aa27-11ed-afa1-0242ac120002'),
        ('44235f3e-aa25-11ed-afa1-0242ac120002', '4e500b46-aa27-11ed-afa1-0242ac120002');
+        ('44235aac-aa25-11ed-afa1-0242ac120002', '4e5009f8-aa27-11ed-afa1-0242ac120002'),
+       ('44235f3e-aa25-11ed-afa1-0242ac120002', '4e5008aa-aa27-11ed-afa1-0242ac120002'),
+       ('44236056-aa25-11ed-afa1-0242ac120002', '4e500742-aa27-11ed-afa1-0242ac120002'),
+       ('44236212-aa25-11ed-afa1-0242ac120002', '4e5005f8-aa27-11ed-afa1-0242ac120002'),
+        ('44236212-aa25-11ed-afa1-0242ac120002', '4e5004a6-aa27-11ed-afa1-0242ac120002'),
+        ('44236212-aa25-11ed-afa1-0242ac120002', '4e50033a-aa27-11ed-afa1-0242ac120002'),
+       ('44236326-aa25-11ed-afa1-0242ac120002', '4e5004a6-aa27-11ed-afa1-0242ac120002'),
+       ('4423641c-aa25-11ed-afa1-0242ac120002', '4e5001ea-aa27-11ed-afa1-0242ac120002'),
+       ('4423650a-aa25-11ed-afa1-0242ac120002', '4e5005f8-aa27-11ed-afa1-0242ac120002'),
+       ('442365f0-aa25-11ed-afa1-0242ac120002', '4e500742-aa27-11ed-afa1-0242ac120002'),
+       ('442366d8-aa25-11ed-afa1-0242ac120002', '4e5008aa-aa27-11ed-afa1-0242ac120002'),
+       ('442367c2-aa25-11ed-afa1-0242ac120002', '4e50033a-aa27-11ed-afa1-0242ac120002');
 
 INSERT INTO store.employee (id, name, surname, date_of_birth, email_address, password)
 VALUES ('7d247b2c-aa27-11ed-afa1-0242ac120002', 'Roberta', 'Hood', '1980-01-01', 'robertahood@gmail.com', 'password1'),
