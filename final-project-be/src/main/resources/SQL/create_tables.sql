@@ -77,7 +77,7 @@ CREATE TABLE store.order
     address_id       uuid,
     payment_method   VARCHAR(50),
     delivery_method  VARCHAR(50),
-    payment_status   VARCHAR(50),
+    payment_status   VARCHAR(50),ls
     order_status     VARCHAR(50),
     FOREIGN KEY (client_id) REFERENCES store.client (id),
     FOREIGN KEY (address_id) REFERENCES store.address (id),
