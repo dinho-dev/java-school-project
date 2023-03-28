@@ -1,7 +1,6 @@
 import {
   AuthBindings,
   Authenticated,
-  GitHubBanner,
   Refine,
 } from "@refinedev/core";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
@@ -27,9 +26,15 @@ import { Login } from "pages/login";
 import {
   ProductCreate,
   ProductEdit,
-  ClientList,
+  ProductList,
   ProductShow,
 } from "pages/products";
+import {
+  ClientCreate,
+  ClientEdit,
+  ClientList,
+  ClientShow,
+} from "./pages/clients";
 import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { parseJwt } from "utils/parse-jwt";
 import { Header } from "./components/header";
@@ -125,7 +130,6 @@ function App() {
 
   return (
     <BrowserRouter>
-      <GitHubBanner />
       <RefineKbarProvider>
         <ColorModeContextProvider>
           <Refine
@@ -154,6 +158,16 @@ function App() {
                   canDelete: true,
                 },
               },
+              {
+                name: "products",
+                list: "/products",
+                create: "/products/create",
+                edit: "/products/edit/:id",
+                show: "/products/show/:id",
+                meta: {
+                  canDelete: true,
+                },
+              },
             ]}
             options={{
               syncWithLocation: true,
@@ -176,15 +190,21 @@ function App() {
                 />
                 <Route path="/clients">
                   <Route index element={<ClientList />} />
-                  <Route path="create" element={<ProductCreate />} />
-                  <Route path="edit/:id" element={<ProductEdit />} />
-                  <Route path="show/:id" element={<ProductShow />} />
+                  <Route path="create" element={<ClientCreate />} />
+                  <Route path="edit/:id" element={<ClientEdit />} />
+                  <Route path="show/:id" element={<ClientShow />} />
                 </Route>
                 <Route path="/categories">
                   <Route index element={<CategoryList />} />
                   <Route path="create" element={<CategoryCreate />} />
                   <Route path="edit/:id" element={<CategoryEdit />} />
                   <Route path="show/:id" element={<CategoryShow />} />
+                </Route>
+                <Route path="/products">
+                  <Route index element={<ProductList />} />
+                  <Route path="create" element={<ProductCreate />} />
+                  <Route path="edit/:id" element={<ProductEdit />} />
+                  <Route path="show/:id" element={<ProductShow />} />
                 </Route>
               </Route>
               <Route

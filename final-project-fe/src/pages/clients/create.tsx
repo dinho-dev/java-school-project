@@ -1,32 +1,18 @@
 import React from "react";
 import { IResourceComponentsProps } from "@refinedev/core";
-import { Create, useForm, useSelect } from "@refinedev/antd";
-import { Form, Input, Select } from "antd";
+import { Create, useForm } from "@refinedev/antd";
+import { Form, Input, DatePicker } from "antd";
+import dayjs from "dayjs";
 
-export const ProductCreate: React.FC<IResourceComponentsProps> = () => {
+export const ClientCreate: React.FC<IResourceComponentsProps> = () => {
   const { formProps, saveButtonProps, queryResult } = useForm();
-
-  const { selectProps: categorySelectProps } = useSelect({
-    resource: "categories",
-  });
 
   return (
       <Create saveButtonProps={saveButtonProps}>
         <Form {...formProps} layout="vertical">
           <Form.Item
-              label="Category"
-              name={"categoryId"}
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-          >
-            <Select {...categorySelectProps} />
-          </Form.Item>
-          <Form.Item
-              label="Title"
-              name={["title"]}
+              label="Name"
+              name={["name"]}
               rules={[
                 {
                   required: true,
@@ -36,8 +22,8 @@ export const ProductCreate: React.FC<IResourceComponentsProps> = () => {
             <Input />
           </Form.Item>
           <Form.Item
-              label="Price"
-              name={["price"]}
+              label="Surname"
+              name={["surname"]}
               rules={[
                 {
                   required: true,
@@ -47,8 +33,22 @@ export const ProductCreate: React.FC<IResourceComponentsProps> = () => {
             <Input />
           </Form.Item>
           <Form.Item
-              label="Parameters"
-              name={["parameters"]}
+              label="Date Of Birth"
+              name={["dateOfBirth"]}
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+              getValueProps={(value) => ({
+                value: value ? dayjs(value) : undefined,
+              })}
+          >
+            <DatePicker />
+          </Form.Item>
+          <Form.Item
+              label="Email Address"
+              name={["emailAddress"]}
               rules={[
                 {
                   required: true,
@@ -58,30 +58,8 @@ export const ProductCreate: React.FC<IResourceComponentsProps> = () => {
             <Input />
           </Form.Item>
           <Form.Item
-              label="Weight"
-              name={["weight"]}
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-              label="Volume"
-              name={["volume"]}
-              rules={[
-                {
-                  required: true,
-                },
-              ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-              label="Quantity In Stock"
-              name={["quantityInStock"]}
+              label="Password"
+              name={["password"]}
               rules={[
                 {
                   required: true,
