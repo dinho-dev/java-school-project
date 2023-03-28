@@ -9,6 +9,17 @@ import org.mapstruct.factory.Mappers;
 public interface OrderMapper {
     OrderMapper MAPPER = Mappers.getMapper(OrderMapper.class);
 
-    OrderEntity fromDTOToEntity(OrderDTO orderDTO);
-    OrderDTO fromEntityToDTO(OrderEntity orderEntity);
+    default OrderEntity fromDTOToEntity(OrderDTO orderDTO) {
+        OrderEntity orderEntity = new OrderEntity();
+        orderEntity.setId(orderDTO.getId());
+        orderEntity.setOrderStatus(orderDTO.getOrderStatus());
+        return orderEntity;
+    }
+
+    default OrderDTO fromEntityToDTO(OrderEntity orderEntity) {
+        OrderDTO orderDTO = new OrderDTO();
+        orderDTO.setId(orderEntity.getId());
+        orderDTO.setOrderStatus(orderEntity.getOrderStatus());
+        return orderDTO;
+    }
 }

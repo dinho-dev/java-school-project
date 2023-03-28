@@ -7,5 +7,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ProductRepository extends JpaRepository<ProductEntity, UUID> {
-  /*  List<ProductEntity> getTopByPrOrderById*/
+    /*  List<ProductEntity> getTopByPrOrderById*/
 }

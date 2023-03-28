@@ -1,5 +1,6 @@
 package com.tsystems.zamaltdinov.final_project.business.service;
 
+import com.tsystems.zamaltdinov.final_project.business.dto.CreateOrderWithProductsDTO;
 import com.tsystems.zamaltdinov.final_project.business.dto.OrderDTO;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface OrderService {
     OrderDTO save(OrderDTO order);
 
     List<OrderDTO> findAllOrders();
+
+    OrderDTO createOrderWithProductsDTO(CreateOrderWithProductsDTO order);
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.tsystems.zamaltdinov.final_project.business.dto.CreateOrderWithProductsDTO;
 import com.tsystems.zamaltdinov.final_project.business.dto.OrderDTO;
 import com.tsystems.zamaltdinov.final_project.business.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,16 @@ public class OrderController {
     @GetMapping
     public List<OrderDTO> findAllOrders() {
         return orderService.findAllOrders();
+    }
+
+    @PostMapping("/create-with-products")
+    public ResponseEntity<OrderDTO> createOrderWithProducts(@RequestBody CreateOrderWithProductsDTO order) {
+        try {
+            OrderDTO _order = orderService.createOrderWithProductsDTO(order);
+            return new ResponseEntity<>(_order, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     @GetMapping("/{id}")
     public ResponseEntity<OrderDTO> getOrderById(@PathVariable("id") UUID id) {

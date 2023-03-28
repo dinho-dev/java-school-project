@@ -15,6 +15,16 @@ public class ProductDTO implements Serializable {
     private String volume;
     private Integer quantityInStock;
 
+    private String imageUrl;
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public ProductDTO() {
     }
 
