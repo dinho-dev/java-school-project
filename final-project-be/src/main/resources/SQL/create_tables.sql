@@ -55,6 +55,7 @@ CREATE TABLE store.product
     weight            VARCHAR(50),
     volume            VARCHAR(50),
     quantity_in_stock INT,
+    image_url          VARCHAR(250),
     FOREIGN KEY (category_id) REFERENCES store.category (id)
 );
 
@@ -77,7 +78,7 @@ CREATE TABLE store.order
     address_id       uuid,
     payment_method   VARCHAR(50),
     delivery_method  VARCHAR(50),
-    payment_status   VARCHAR(50),ls
+    payment_status   VARCHAR(50),
     order_status     VARCHAR(50),
     FOREIGN KEY (client_id) REFERENCES store.client (id),
     FOREIGN KEY (address_id) REFERENCES store.address (id),

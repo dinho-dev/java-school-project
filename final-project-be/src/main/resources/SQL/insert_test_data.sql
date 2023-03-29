@@ -87,32 +87,32 @@ VALUES (1, 'Laptops'),
        (4, 'Smartwatches'),
        (5, 'Gaming consoles');
 
-INSERT INTO store.product (id, title, price, category_id, parameters, weight, volume, quantity_in_stock)
+INSERT INTO store.product (id, title, price, category_id, parameters, weight, volume, quantity_in_stock, image_url)
 VALUES ('4e4ffcfe-aa27-11ed-afa1-0242ac120002', 'Apple MacBook Pro', 1500, 1, '13 inch, 256GB SSD, 8GB RAM',
-        '3lb', '14x9x1 in', '20'),
+        '3lb', '14x9x1 in', '20', 'https://img.mvideo.ru/Pdb/30053805b.jpg'),
        ('4e500078-aa27-11ed-afa1-0242ac120002', 'Samsung Galaxy S21', 800, 2, '6.2 inch, 128GB, 8GB RAM',
-        '6oz', '6x3x1 in', '50'),
+        '6oz', '6x3x1 in', '50', 'https://items.s1.citilink.ru/1794238_v01_b.jpg'),
        ('4e5001ea-aa27-11ed-afa1-0242ac120002', 'Dell XPS 15', 1700, 1, '15 inch, 512GB SSD, 16GB RAM',
-        '4lb', '14x9x1 in', '30'),
+        '4lb', '14x9x1 in', '30', 'https://img.pccomponentes.com/articles/1029/10294662/7195-dell-xps-15-9520-intel-core-i7-12700h-16gb-1tb-ssd-rtx3050-ti-156-review.jpg'),
        ('4e50033a-aa27-11ed-afa1-0242ac120002', 'Sony WH-1000XM4', 350, 3, 'Over-ear, Bluetooth, Noise-cancelling',
-        '0.8lb', '8x7x2 in', '10'),
+        '0.8lb', '8x7x2 in', '10', 'https://p.turbosquid.com/ts-thumb/Lv/713MJ7/i7tUUKGD/sony_1000xm4_render00_black/png/1590943750/600x600/fit_q87/35699212c93366353098916e565abda37279c89b/sony_1000xm4_render00_black.jpg'),
        ('4e5004a6-aa27-11ed-afa1-0242ac120002', 'Apple iPhone 13', 1000, 2, '6.1 inch, 128GB, 5G',
-        '5.8oz', '5.78x2.82x0.3 in', '25'),
+        '5.8oz', '5.78x2.82x0.3 in', '25', 'https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71dpTXFz+dL._AC_SX466_.jpg'),
        ('4e5005f8-aa27-11ed-afa1-0242ac120002', 'Samsung Galaxy Watch 4', 250, 4, '40mm, Black, Bluetooth',
-        '1.6oz', '1.36x1.36x0.39 in', '15'),
+        '1.6oz', '1.36x1.36x0.39 in', '15', 'https://image-us.samsung.com/SamsungUS/configurator/watch4_bands/W4_40mm_02_BLK_Sport_BLK-MB-720x720.jpg'),
        ('4e500742-aa27-11ed-afa1-0242ac120002', 'Xbox Series X', 500, 5, '1TB SSD, 12 TFLOPS',
-        '9.8lb', '15.1x15.1x6 in', '5'),
+        '9.8lb', '15.1x15.1x6 in', '5', 'https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/61nq7mC0tHL._AC_SX522_.jpg'),
        ('4e5008aa-aa27-11ed-afa1-0242ac120002', 'ASUS ROG Zephyrus G15', 2000, 1, '15.6 inch, 1TB SSD, 32GB RAM',
-        '4.6lb', '14.2x9.9x0.8 in', '10'),
+        '4.6lb', '14.2x9.9x0.8 in', '10', 'https://img.pccomponentes.com/articles/79/796622/3625-asus-rog-zephyrus-g15-ga503qs-hq004t-amd-ryzen-9-5900hs-32gb-1tb-ssd-rtx-3080-156-mejor-precio.jpg'),
        ('4e5009f8-aa27-11ed-afa1-0242ac120002', 'Bose QuietComfort Earbuds', 250, 3, 'True wireless, Noise-cancelling',
-        '0.3lb', '2.5x2.5x1.5 in', '8'),
+        '0.3lb', '2.5x2.5x1.5 in', '8', 'https://fotosuraj.com/34433-large_default/bose-quietcomfort-earbuds-ii.jpg'),
        ('4e500b46-aa27-11ed-afa1-0242ac120002', 'Google Pixel 6', 700, 2, '6.4 inch, 128GB, 5G',
-        '6.7oz', '6.3x2.9x0.3 in', '30');
+        '6.7oz', '6.3x2.9x0.3 in', '30', 'https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71SGl7xwR-L._AC_SS450_.jpg');
 
 INSERT INTO store.order_product (order_id, product_id)
 VALUES ('44235aac-aa25-11ed-afa1-0242ac120002', '4e4ffcfe-aa27-11ed-afa1-0242ac120002'),
        ('44235aac-aa25-11ed-afa1-0242ac120002', '4e50033a-aa27-11ed-afa1-0242ac120002'),
-       ('44235f3e-aa25-11ed-afa1-0242ac120002', '4e500b46-aa27-11ed-afa1-0242ac120002');
+       ('44235f3e-aa25-11ed-afa1-0242ac120002', '4e500b46-aa27-11ed-afa1-0242ac120002'),
         ('44235aac-aa25-11ed-afa1-0242ac120002', '4e5009f8-aa27-11ed-afa1-0242ac120002'),
        ('44235f3e-aa25-11ed-afa1-0242ac120002', '4e5008aa-aa27-11ed-afa1-0242ac120002'),
        ('44236056-aa25-11ed-afa1-0242ac120002', '4e500742-aa27-11ed-afa1-0242ac120002'),

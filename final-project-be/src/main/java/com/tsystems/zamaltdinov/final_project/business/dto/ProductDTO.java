@@ -14,16 +14,8 @@ public class ProductDTO implements Serializable {
     private String weight;
     private String volume;
     private Integer quantityInStock;
-
     private String imageUrl;
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 
     public ProductDTO() {
     }
@@ -90,5 +82,11 @@ public class ProductDTO implements Serializable {
 
     public void setQuantityInStock(Integer quantityInStock) {
         this.quantityInStock = quantityInStock;
+    }
+    public String getImageUrl() {
+        return imageUrl;
+    }
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

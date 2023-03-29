@@ -16,8 +16,9 @@ public interface ProductMapper {
         productEntity.setPrice(productDTO.getPrice());
         productEntity.setParameters(productDTO.getParameters());
         productEntity.setWeight(productDTO.getWeight());
-        productEntity.setVolume(productDTO.getWeight());
+        productEntity.setVolume(productDTO.getVolume());
         productEntity.setQuantityInStock(productDTO.getQuantityInStock());
+        productEntity.setImageUrl(productDTO.getImageUrl());
         return productEntity;
     }
 
@@ -31,6 +32,7 @@ public interface ProductMapper {
         productDTO.setWeight(productEntity.getWeight());
         productDTO.setVolume(productEntity.getVolume());
         productDTO.setQuantityInStock(productEntity.getQuantityInStock());
+        productDTO.setImageUrl(productEntity.getImageUrl());
         return productDTO;
     }
 }

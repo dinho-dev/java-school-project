@@ -33,6 +33,9 @@ public class ProductEntity {
     @Basic
     @Column(name = "quantity_in_stock")
     private Integer quantityInStock;
+    @Basic
+    @Column(name = "image_url")
+    private String imageUrl;
     @OneToMany(mappedBy = "productByProductId")
     private Collection<OrderProductEntity> orderProductsById;
     @ManyToOne
@@ -42,7 +45,7 @@ public class ProductEntity {
     public ProductEntity() {
     }
 
-    public ProductEntity(UUID id, Integer categoryId, String title, Integer price, String parameters, String weight, String volume, Integer quantityInStock, Collection<OrderProductEntity> orderProductsById, CategoryEntity categoryByCategoryId) {
+    public ProductEntity(UUID id, Integer categoryId, String title, Integer price, String parameters, String weight, String volume, Integer quantityInStock, Collection<OrderProductEntity> orderProductsById, CategoryEntity categoryByCategoryId, String imageUrl) {
         this.id = id;
         this.categoryId = categoryId;
         this.title = title;
@@ -53,6 +56,7 @@ public class ProductEntity {
         this.quantityInStock = quantityInStock;
         this.orderProductsById = orderProductsById;
         this.categoryByCategoryId = categoryByCategoryId;
+        this.imageUrl = imageUrl;
     }
 
     public UUID getId() {
@@ -117,6 +121,14 @@ public class ProductEntity {
 
     public void setQuantityInStock(Integer quantityInStock) {
         this.quantityInStock = quantityInStock;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     @Override

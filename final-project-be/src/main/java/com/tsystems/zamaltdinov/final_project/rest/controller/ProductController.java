@@ -21,11 +21,7 @@ public class ProductController {
     ProductService productService;
     @GetMapping
     public List<ProductDTO> findAllProducts() {
-        List <ProductDTO> productsTest = productService.findAllProducts();
-        productsTest.forEach(productDTO -> {
-            productDTO.setImageUrl("https://cdn.shopify.com/s/files/1/0036/4806/1509/products/4873dc4bb3b62e3e25b5462f15339e7cfa653065_square2963405_1_1000x.jpg?v=1677222980");
-        });
-        return productsTest;
+        return productService.findAllProducts();
     }
     @GetMapping("/{id}")
     public ResponseEntity<ProductDTO> getProductById(@PathVariable("id") UUID id) {
