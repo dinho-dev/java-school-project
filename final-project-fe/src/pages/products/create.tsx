@@ -92,7 +92,7 @@ export const ProductCreate: React.FC<IResourceComponentsProps> = () => {
           </Form.Item>
             <Form.Item
                 label="Image URL"
-                name={["imageURL"]}
+                name={["imageUrl"]}
                 rules={[
                     {
                         required: true,
