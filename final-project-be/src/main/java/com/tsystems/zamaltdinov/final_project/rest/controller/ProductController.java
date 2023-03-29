@@ -53,7 +53,7 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<ProductDTO> updateProduct(@PathVariable("id") UUID id, @RequestBody ProductDTO productDTO) {
         Optional<ProductDTO> productData = productService.update(id, productDTO);
 
