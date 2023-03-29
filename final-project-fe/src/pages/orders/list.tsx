@@ -1,6 +1,6 @@
 import React from "react";
 import { IResourceComponentsProps, BaseRecord } from "@refinedev/core";
-import { useTable, List, ShowButton } from "@refinedev/antd";
+import { useTable, List, ShowButton, DeleteButton } from "@refinedev/antd";
 import { Table, Space } from "antd";
 
 export const OrderList: React.FC<IResourceComponentsProps> = () => {
@@ -21,6 +21,10 @@ export const OrderList: React.FC<IResourceComponentsProps> = () => {
                             <ShowButton
                                 hideText
                                 size="small"
+                                recordItemId={record.id}
+                            />
+                            <DeleteButton
+                                resource="orders"
                                 recordItemId={record.id}
                             />
                         </Space>

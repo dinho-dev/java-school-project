@@ -1,6 +1,6 @@
 import React from "react";
 import {IResourceComponentsProps, BaseRecord} from "@refinedev/core";
-import {useTable, List, ImageField, EditButton, ShowButton} from "@refinedev/antd";
+import {useTable, List, ImageField, EditButton, ShowButton, DeleteButton} from "@refinedev/antd";
 import {Table, Space, Button} from "antd";
 import {ContainerFilled, ShoppingCartOutlined} from "@ant-design/icons";
 import {AddToShoppingCart} from "../../components/add-to-shopping-cart";
@@ -57,6 +57,11 @@ export const ProductList: React.FC<IResourceComponentsProps> = () => {
                                 resource={record.title}
                                 price={record.price}
                             />
+                            <DeleteButton
+                                resource="products"
+                                recordItemId={record.id}
+                            />
+
                         </Space>
                     )}
                 />
