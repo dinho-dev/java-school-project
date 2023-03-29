@@ -27,12 +27,6 @@ export const Header: React.FC = () => {
       }}
     >
       <Space>
-        <Switch
-          checkedChildren="🌛"
-          unCheckedChildren="🔆"
-          onChange={() => setMode(mode === "light" ? "dark" : "light")}
-          defaultChecked={mode === "dark"}
-        />
         <Space style={{ marginLeft: "8px" }}>
           {user?.name && (
             <Text style={{ color: "white" }} strong>

@@ -104,6 +104,17 @@ export const ProductEdit: React.FC<IResourceComponentsProps> = () => {
           >
             <Input />
           </Form.Item>
+            <Form.Item
+                label="Image URL"
+                name={["imageUrl"]}
+                rules={[
+                    {
+                        required: true,
+                    },
+                ]}
+            >
+                <Input />
+            </Form.Item>
         </Form>
       </Edit>
   );

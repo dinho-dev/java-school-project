@@ -39,6 +39,9 @@ import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
 import { parseJwt } from "utils/parse-jwt";
 import { Header } from "./components/header";
 import { ColorModeContextProvider } from "./contexts/color-mode";
+import {ShowShoppingCart} from "./pages/shopping-cart/show";
+import {OrderList} from "./pages/orders/list";
+import {OrderShow} from "./pages/orders/show";
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
@@ -145,7 +148,7 @@ function App() {
                 edit: "/clients/edit/:id",
                 show: "/clients/show/:id",
                 meta: {
-                  canDelete: true,
+                  canDelete: false,
                 },
               },
               {
@@ -155,7 +158,7 @@ function App() {
                 edit: "/categories/edit/:id",
                 show: "/categories/show/:id",
                 meta: {
-                  canDelete: true,
+                  canDelete: false,
                 },
               },
               {
@@ -165,9 +168,18 @@ function App() {
                 edit: "/products/edit/:id",
                 show: "/products/show/:id",
                 meta: {
-                  canDelete: true,
+                  canDelete: false,
                 },
               },
+              {
+                name: "orders",
+                list: "/orders",
+                show: "/orders/show/:id",
+              },
+              {
+                name: "shopping-cart",
+                list: "/shopping-cart",
+              }
             ]}
             options={{
               syncWithLocation: true,
@@ -206,6 +218,11 @@ function App() {
                   <Route path="edit/:id" element={<ProductEdit />} />
                   <Route path="show/:id" element={<ProductShow />} />
                 </Route>
+                <Route path="/orders">
+                  <Route index element={<OrderList />} />
+                  <Route path="show/:id" element={<OrderShow />} />
+                </Route>
+                <Route path="/shopping-cart" element={<ShowShoppingCart />} />
               </Route>
               <Route
                 element={

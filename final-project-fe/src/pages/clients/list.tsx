@@ -18,8 +18,18 @@
       syncWithLocation: true,
     });
 
+    /*
+    {
+        "id": 1,
+        "name": "John",
+        "surname": "Doe",
+        "dateOfBirth": "1990-01-01",
+    }
+     */
     return (
         <List>
+
+
           <Table {...tableProps} rowKey="id">
             <Table.Column dataIndex="id" title="Id" />
             <Table.Column dataIndex="name" title="Name" />
