@@ -8,8 +8,7 @@ CREATE TABLE store.client
     surname       VARCHAR(100),
     date_of_birth DATE,
     email_address VARCHAR(100),
-    password      VARCHAR(50),
-    app_user_role   VARCHAR(5)
+    password      VARCHAR(50)
 );
 
 CREATE TABLE store.address

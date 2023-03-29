@@ -1,19 +1,19 @@
-INSERT INTO store.client (id, name, surname, date_of_birth, email_address, password, app_user_role)
-VALUES ('aa5366f0-aa25-11ed-afa1-0242ac120002', 'John', 'Doe', '1990-01-01', 'johndoe@email.com', 'password123', 'ADMIN'),
-       ('aa536f42-aa25-11ed-afa1-0242ac120002', 'Jane', 'Smith', '1992-03-05', 'janesmith@email.com', 'password456', 'USER'),
-       ('aa537104-aa25-11ed-afa1-0242ac120002', 'Jim', 'Brown', '1989-12-25', 'jimbrown@email.com', 'password789', 'USER'),
+INSERT INTO store.client (id, name, surname, date_of_birth, email_address, password)
+VALUES ('aa5366f0-aa25-11ed-afa1-0242ac120002', 'John', 'Doe', '1990-01-01', 'johndoe@email.com', 'password123'),
+       ('aa536f42-aa25-11ed-afa1-0242ac120002', 'Jane', 'Smith', '1992-03-05', 'janesmith@email.com', 'password456'),
+       ('aa537104-aa25-11ed-afa1-0242ac120002', 'Jim', 'Brown', '1989-12-25', 'jimbrown@email.com', 'password789'),
        ('aa5373e0-aa25-11ed-afa1-0242ac120002', 'Sarah', 'Johnson', '1995-07-15', 'sarahjohnson@email.com',
-        'password453', 'USER'),
-       ('aa53756c-aa25-11ed-afa1-0242ac120002', 'Michael', 'Lee', '1987-09-21', 'michaellee@email.com', 'password199', 'USER'),
+        'password453'),
+       ('aa53756c-aa25-11ed-afa1-0242ac120002', 'Michael', 'Lee', '1987-09-21', 'michaellee@email.com', 'password199'),
        ('aa5376a6-aa25-11ed-afa1-0242ac120002', 'Emily', 'Wilson', '1998-05-12', 'emilywilson@email.com',
-        'password544', 'USER'),
+        'password544'),
        ('aa53780c-aa25-11ed-afa1-0242ac120002', 'William', 'Jones', '1985-03-28', 'williamjones@email.com',
-        'password128', 'USER'),
+        'password128'),
        ('aa53792e-aa25-11ed-afa1-0242ac120002', 'Grace', 'Miller', '1991-11-03', 'gracemiller@email.com',
-        'password387', 'USER'),
-       ('aa537a6c-aa25-11ed-afa1-0242ac120002', 'David', 'Davis', '1999-01-25', 'daviddavis@email.com', 'password512', 'USER'),
+        'password387'),
+       ('aa537a6c-aa25-11ed-afa1-0242ac120002', 'David', 'Davis', '1999-01-25', 'daviddavis@email.com', 'password512'),
        ('aa537b8e-aa25-11ed-afa1-0242ac120002', 'Linda', 'Wilson', '1988-12-05', 'lindawilson@email.com',
-        'password831', 'USER');
+        'password831');
 
 INSERT INTO store.address (id, client_id, country, city, postal_code, street, home, apartment)
 VALUES ('cdf71b60-aa25-11ed-afa1-0242ac120002', 'aa5366f0-aa25-11ed-afa1-0242ac120002', 'USA', 'New York', '10001',

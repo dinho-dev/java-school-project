@@ -10,7 +10,7 @@ import java.util.UUID;
 @Table(name = "client", schema = "store", catalog = "postgres")
 public class ClientEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
     @Column(name = "name")
     private String name;
@@ -37,14 +37,6 @@ public class ClientEntity {
         this.emailAddress = emailAddress;
         this.password = password;
     }
-    /*(
-    id            uuid PRIMARY KEY,
-    name          VARCHAR(100),
-    surname       VARCHAR(100),
-    date_of_birth DATE,
-    email_address VARCHAR(100),
-    password      VARCHAR(50)
-    );*/
     public UUID getId() {
         return id;
     }

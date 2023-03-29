@@ -8,7 +8,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "order", schema = "store", catalog = "postgres")
 public class OrderEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id")
     private UUID id;

@@ -3,18 +3,19 @@ package com.tsystems.zamaltdinov.final_project.transactional.entity;
 import jakarta.persistence.*;
 
 import java.util.Collection;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
 @Table(name = "product", schema = "store", catalog = "postgres")
 public class ProductEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id")
     private UUID id;
     @Basic
     @Column(name = "category_id")
-    private Integer categoryId;
+    private int categoryId;
     @Basic
     @Column(name = "title")
     private String title;
@@ -135,33 +136,13 @@ public class ProductEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         ProductEntity that = (ProductEntity) o;
-
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (categoryId != null ? !categoryId.equals(that.categoryId) : that.categoryId != null) return false;
-        if (title != null ? !title.equals(that.title) : that.title != null) return false;
-        if (price != null ? !price.equals(that.price) : that.price != null) return false;
-        if (parameters != null ? !parameters.equals(that.parameters) : that.parameters != null) return false;
-        if (weight != null ? !weight.equals(that.weight) : that.weight != null) return false;
-        if (volume != null ? !volume.equals(that.volume) : that.volume != null) return false;
-        if (quantityInStock != null ? !quantityInStock.equals(that.quantityInStock) : that.quantityInStock != null)
-            return false;
-
-        return true;
+        return categoryId == that.categoryId && id.equals(that.id) && title.equals(that.title) && Objects.equals(price, that.price) && Objects.equals(parameters, that.parameters) && Objects.equals(weight, that.weight) && Objects.equals(volume, that.volume) && Objects.equals(quantityInStock, that.quantityInStock) && Objects.equals(imageUrl, that.imageUrl) && Objects.equals(orderProductsById, that.orderProductsById) && Objects.equals(categoryByCategoryId, that.categoryByCategoryId);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (categoryId != null ? categoryId.hashCode() : 0);
-        result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (price != null ? price.hashCode() : 0);
-        result = 31 * result + (parameters != null ? parameters.hashCode() : 0);
-        result = 31 * result + (weight != null ? weight.hashCode() : 0);
-        result = 31 * result + (volume != null ? volume.hashCode() : 0);
-        result = 31 * result + (quantityInStock != null ? quantityInStock.hashCode() : 0);
-        return result;
+        return Objects.hash(id, categoryId, title, price, parameters, weight, volume, quantityInStock, imageUrl, orderProductsById, categoryByCategoryId);
     }
 
     public Collection<OrderProductEntity> getOrderProductsById() {
