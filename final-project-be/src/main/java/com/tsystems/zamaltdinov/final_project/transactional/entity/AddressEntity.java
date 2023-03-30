@@ -51,14 +51,6 @@ public class AddressEntity {
         this.home = home;
         this.apartment = apartment;
     }
-    /* id          uuid PRIMARY KEY,
-    client_id   uuid,
-    country     VARCHAR(50),
-    city        VARCHAR(50),
-    postal_code INT,
-    street      VARCHAR(100),
-    home        INT,
-    apartment   VARCHAR(10),*/
 
     public UUID getId() {
         return id;
