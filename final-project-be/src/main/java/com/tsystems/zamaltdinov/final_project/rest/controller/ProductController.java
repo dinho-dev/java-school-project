@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@CrossOrigin(origins = "http://localhost:5432")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/products")
 public class ProductController {
@@ -44,7 +44,7 @@ public class ProductController {
         }
     }
     // TODO: create add to cart order
-    @PostMapping("/{id}/add-to-cart")
+  /*  @PostMapping("/{id}/add-to-cart")
     public ResponseEntity<HttpStatus> addToCart(@PathVariable("id") UUID id) {
         try {
             ProductDTO productDTO = productService.findById(id).get();
@@ -52,7 +52,7 @@ public class ProductController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
+    }*/
     @PatchMapping("/{id}")
     public ResponseEntity<ProductDTO> updateProduct(@PathVariable("id") UUID id, @RequestBody ProductDTO productDTO) {
         Optional<ProductDTO> productData = productService.update(id, productDTO);
