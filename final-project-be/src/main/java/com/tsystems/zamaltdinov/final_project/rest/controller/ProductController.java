@@ -44,16 +44,8 @@ public class ProductController {
         }
     }
     // TODO: create add to cart order
-  /*  @PostMapping("/{id}/add-to-cart")
-    public ResponseEntity<HttpStatus> addToCart(@PathVariable("id") UUID id) {
-        try {
-            ProductDTO productDTO = productService.findById(id).get();
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }*/
-    @PatchMapping("/{id}")
+
+    @PutMapping("/{id}")
     public ResponseEntity<ProductDTO> updateProduct(@PathVariable("id") UUID id, @RequestBody ProductDTO productDTO) {
         Optional<ProductDTO> productData = productService.update(id, productDTO);
 
