@@ -10,7 +10,6 @@ const CreateProductForm = () => {
     const [loading, setLoading] = useState(false);
 
     interface MyFormValues {
-        id: string;
         categoryId: number;
         title: string;
         price: number;
@@ -46,7 +45,7 @@ const CreateProductForm = () => {
                     },
                 ]}
             >
-                <Select />
+                <Input />
             </Form.Item>
             <Form.Item
                 label="Title"
@@ -119,6 +118,18 @@ const CreateProductForm = () => {
                 ]}
             >
                 <Input type="number" />
+            </Form.Item>
+            <Form.Item
+                label="Image URL"
+                name="imageUrl"
+                rules={[
+                    {
+                        required: true,
+                        message: "Please enter an image URL",
+                    },
+                ]}
+            >
+                <Input type="url" />
             </Form.Item>
             <Form.Item>
                 <Button type="primary" htmlType="submit" loading={loading}>
