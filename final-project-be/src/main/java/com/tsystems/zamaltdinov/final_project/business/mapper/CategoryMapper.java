@@ -13,17 +13,14 @@ public interface CategoryMapper {
     default CategoryEntity fromDTOToEntity(CategoryDTO categoryDTO){
         CategoryEntity categoryEntity = new CategoryEntity();
         categoryEntity.setId(categoryDTO.getId());
-        categoryEntity.setCategory(categoryDTO.getCategory());
+        categoryEntity.setCategoryName(categoryDTO.getCategoryName());
         return categoryEntity;
     }
     default CategoryDTO  fromEntityToDTO(CategoryEntity categoryEntity) {
         CategoryDTO categoryDTO = new CategoryDTO();
         categoryDTO.setId(categoryEntity.getId());
-        categoryDTO.setCategory(categoryEntity.getCategory());
+        categoryDTO.setCategoryName(categoryEntity.getCategoryName());
 
         return categoryDTO;
     }
-    /*CategoryMapper MAPPER = Mappers.getMapper(CategoryMapper.class);
-    CategoryEntity fromDTOToEntity(CategoryDTO categoryDTO);
-    CategoryDTO fromEntityToDTO(CategoryEntity categoryEntity);*/
 }
