@@ -39,7 +39,7 @@ CREATE TABLE store.payment_method
 CREATE TABLE store.category
 (
     id       SERIAL PRIMARY KEY,
-    category VARCHAR(50)
+    name VARCHAR(50)
 );
 
 ALTER SEQUENCE store.category_id_seq RESTART WITH 6;

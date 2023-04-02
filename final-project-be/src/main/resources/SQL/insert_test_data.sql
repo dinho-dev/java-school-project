@@ -80,7 +80,7 @@ VALUES ('44235aac-aa25-11ed-afa1-0242ac120002', 'aa5366f0-aa25-11ed-afa1-0242ac1
        ('442367c2-aa25-11ed-afa1-0242ac120002', 'aa537b8e-aa25-11ed-afa1-0242ac120002',
         'cdf72bd8-aa25-11ed-afa1-0242ac120002', 'By card', 'International', 'Paid', 'pending shipment');
 
-INSERT INTO store.category (id, category)
+INSERT INTO store.category (id, name)
 VALUES (1, 'Laptops'),
        (2, 'Smartphones'),
        (3, 'Headphones'),
