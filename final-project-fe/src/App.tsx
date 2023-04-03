@@ -5,7 +5,7 @@ import {
     MenuFoldOutlined,
     MenuUnfoldOutlined
 } from '@ant-design/icons';
-import { Layout, Menu, theme } from 'antd';
+import { Layout, Menu, theme, Pagination } from 'antd';
 import ProductList from "./pages/products/list";
 import {Home} from "./pages/Home";
 import {About} from "./pages/About";
@@ -50,7 +50,7 @@ const App: React.FC = () => {
                     style={{
                         margin: '24px 16px',
                         padding: 24,
-                        minHeight: 280,
+                        minHeight: 700,
                         background: colorBgContainer,
                     }}
                 >
@@ -62,6 +62,14 @@ const App: React.FC = () => {
                         <Route path="/product/edit" element={<EditProductForm/>} />
                     </Routes>
                 </Content>
+                <Pagination
+                    style={{
+                        textAlign: 'center',
+                        marginBottom: '24px',
+                    }}
+                    defaultCurrent={1}
+                    total={50}
+                />
             </Layout>
         </Layout>
     );
