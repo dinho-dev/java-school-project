@@ -96,12 +96,13 @@ CREATE TABLE store.order_product
     PRIMARY KEY (order_id, product_id)
 );
 
-CREATE TABLE store.employee
+CREATE TABLE store.user
 (
     id            uuid PRIMARY KEY,
-    name          VARCHAR(100),
-    surname       VARCHAR(100),
-    date_of_birth DATE,
-    email_address VARCHAR(100),
-    password      VARCHAR(50)
+    firstname          VARCHAR(100),
+    lastname           VARCHAR(100),
+    date_of_birth      DATE,
+    email              VARCHAR(100),
+    password           VARCHAR(250),
+    role               VARCHAR(10)
 );

@@ -126,10 +126,10 @@ VALUES ('44235aac-aa25-11ed-afa1-0242ac120002', '4e4ffcfe-aa27-11ed-afa1-0242ac1
        ('442366d8-aa25-11ed-afa1-0242ac120002', '4e5008aa-aa27-11ed-afa1-0242ac120002'),
        ('442367c2-aa25-11ed-afa1-0242ac120002', '4e50033a-aa27-11ed-afa1-0242ac120002');
 
-INSERT INTO store.employee (id, name, surname, date_of_birth, email_address, password)
-VALUES ('7d247b2c-aa27-11ed-afa1-0242ac120002', 'Roberta', 'Hood', '1980-01-01', 'robertahood@gmail.com', 'password1'),
+INSERT INTO store.user (id, firstname, lastname, date_of_birth, email, password, role)
+VALUES ('7d247b2c-aa27-11ed-afa1-0242ac120002', 'Roberta', 'Hood', '1980-01-01', 'robertahood@gmail.com', 'password1', 'ADMIN'),
        ('7d247dd4-aa27-11ed-afa1-0242ac120002', 'Harry', 'Barnett', '1990-05-15', 'harrybarnett@gmail.com',
-        'password2'),
+        'password2', 'USER'),
        ('7d247f3c-aa27-11ed-afa1-0242ac120002', 'Jaydon', 'Robinson', '1975-11-30', 'jaydonrobinson@gmail.com',
-        'password3');
+        'password3', 'ADMIN');
 
