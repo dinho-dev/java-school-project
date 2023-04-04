@@ -2,6 +2,9 @@ package com.tsystems.zamaltdinov.final_project.security.auth;
 
 
 import com.tsystems.zamaltdinov.final_project.security.config.JwtService;
+import com.tsystems.zamaltdinov.final_project.security.token.Token;
+import com.tsystems.zamaltdinov.final_project.security.token.TokenRepository;
+import com.tsystems.zamaltdinov.final_project.security.token.TokenType;
 import com.tsystems.zamaltdinov.final_project.transactional.entity.Role;
 import com.tsystems.zamaltdinov.final_project.transactional.entity.User;
 import com.tsystems.zamaltdinov.final_project.transactional.repository.UserRepository;
@@ -15,7 +18,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthenticationService {
     private final UserRepository repository;
-    /*private final TokenRepository tokenRepository;*/
+    private final TokenRepository tokenRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
@@ -29,9 +32,9 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
                 .build();
-        /*var savedUser = */repository.save(user);
+        var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
-        /*saveUserToken(savedUser, jwtToken);*/
+        saveUserToken(savedUser, jwtToken);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
@@ -47,14 +50,14 @@ public class AuthenticationService {
         var user = repository.findByEmail(request.getEmail())
                 .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
-       /* revokeAllUserTokens(user);
-        saveUserToken(user, jwtToken);*/
+        revokeAllUserTokens(user);
+        saveUserToken(user, jwtToken);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
     }
 
-/*    private void saveUserToken(User user, String jwtToken) {
+    private void saveUserToken(User user, String jwtToken) {
         var token = Token.builder()
                 .user(user)
                 .token(jwtToken)
@@ -74,5 +77,5 @@ public class AuthenticationService {
             token.setRevoked(true);
         });
         tokenRepository.saveAll(validUserTokens);
-    }*/
+    }
 }
