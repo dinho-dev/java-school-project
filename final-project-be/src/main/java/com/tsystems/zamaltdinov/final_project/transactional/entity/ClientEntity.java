@@ -1,3 +1,4 @@
+/*
 package com.tsystems.zamaltdinov.final_project.transactional.entity;
 
 import jakarta.persistence.*;
@@ -7,7 +8,7 @@ import java.util.Collection;
 import java.util.UUID;
 
 @Entity
-@Table(name = "client", schema = "store", catalog = "postgres")
+@Table(name = "user", schema = "store", catalog = "postgres")
 public class ClientEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -104,3 +105,4 @@ public class ClientEntity {
         this.ordersById = ordersById;
     }
 }
+*/

@@ -13,8 +13,8 @@ public class OrderEntity {
     @Column(name = "id")
     private UUID id;
     @Basic
-    @Column(name = "client_id")
-    private UUID clientId;
+    @Column(name = "user_id")
+    private UUID userId;
     @Basic
     @Column(name = "address_id")
     private UUID addressId;
@@ -31,8 +31,8 @@ public class OrderEntity {
     @Column(name = "order_status", insertable=false, updatable=false)
     private String orderStatus;
     @ManyToOne
-    @JoinColumn(name = "client_id", referencedColumnName = "id", insertable=false, updatable=false)
-    private ClientEntity clientByClientId;
+    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable=false, updatable=false)
+    private User userByUserId;
     @ManyToOne
     @JoinColumn(name = "address_id", referencedColumnName = "id", insertable=false, updatable=false)
     private AddressEntity addressByAddressId;
@@ -54,20 +54,20 @@ public class OrderEntity {
     public OrderEntity() {
     }
 
-    public OrderEntity(UUID id, UUID clientId, UUID addressId, String paymentMethod, String deliveryMethod,
-                       String paymentStatus, String orderStatus, ClientEntity clientByClientId,
+    public OrderEntity(UUID id, UUID userId, UUID addressId, String paymentMethod, String deliveryMethod,
+                       String paymentStatus, String orderStatus, User userByUserId,
                        AddressEntity addressByAddressId, PaymentMethodEntity paymentMethodByPaymentMethod,
                        DeliveryMethodEntity deliveryMethodByDeliveryMethod,
                        PaymentStatusEntity paymentStatusByPaymentStatus, OrderStatusEntity orderStatusByOrderStatus,
                        Collection<OrderProductEntity> orderProductsById) {
         this.id = id;
-        this.clientId = clientId;
+        this.userId = userId;
         this.addressId = addressId;
         this.paymentMethod = paymentMethod;
         this.deliveryMethod = deliveryMethod;
         this.paymentStatus = paymentStatus;
         this.orderStatus = orderStatus;
-        this.clientByClientId = clientByClientId;
+        this.userByUserId = userByUserId;
         this.addressByAddressId = addressByAddressId;
         this.paymentMethodByPaymentMethod = paymentMethodByPaymentMethod;
         this.deliveryMethodByDeliveryMethod = deliveryMethodByDeliveryMethod;
@@ -84,12 +84,12 @@ public class OrderEntity {
         this.id = id;
     }
 
-    public UUID getClientId() {
-        return clientId;
+    public UUID getUserId() {
+        return userId;
     }
 
-    public void setClientId(UUID clientId) {
-        this.clientId = clientId;
+    public void setUserId(UUID userId) {
+        this.userId = userId;
     }
 
     public UUID getAddressId() {
@@ -140,7 +140,7 @@ public class OrderEntity {
         OrderEntity that = (OrderEntity) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (clientId != null ? !clientId.equals(that.clientId) : that.clientId != null) return false;
+        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
         if (addressId != null ? !addressId.equals(that.addressId) : that.addressId != null) return false;
         if (paymentMethod != null ? !paymentMethod.equals(that.paymentMethod) : that.paymentMethod != null)
             return false;
@@ -156,7 +156,7 @@ public class OrderEntity {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (clientId != null ? clientId.hashCode() : 0);
+        result = 31 * result + (userId != null ? userId.hashCode() : 0);
         result = 31 * result + (addressId != null ? addressId.hashCode() : 0);
         result = 31 * result + (paymentMethod != null ? paymentMethod.hashCode() : 0);
         result = 31 * result + (deliveryMethod != null ? deliveryMethod.hashCode() : 0);
@@ -165,12 +165,12 @@ public class OrderEntity {
         return result;
     }
 
-    public ClientEntity getClientByClientId() {
-        return clientByClientId;
+    public User getUserByUserId() {
+        return userByUserId;
     }
 
-    public void setClientByClientId(ClientEntity clientByClientId) {
-        this.clientByClientId = clientByClientId;
+    public void setUserByUserId(User userByUserId) {
+        this.userByUserId = userByUserId;
     }
 
     public AddressEntity getAddressByAddressId() {

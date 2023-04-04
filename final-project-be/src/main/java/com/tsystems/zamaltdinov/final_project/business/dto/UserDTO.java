@@ -4,15 +4,15 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
 
-public class ClientDTO implements Serializable {
+public class UserDTO implements Serializable {
         private UUID id;
-        private String name;
-        private String surname;
+        private String firstname;
+        private String lastname;
         private LocalDate dateOfBirth;
-        private String emailAddress;
+        private String email;
         private String password;
 
-        public ClientDTO() {
+        public UserDTO() {
         }
 
         public UUID getId() {
@@ -23,20 +23,20 @@ public class ClientDTO implements Serializable {
                 this.id = id;
         }
 
-        public String getName() {
-                return name;
+        public String getFirstname() {
+                return firstname;
         }
 
-        public void setName(String name) {
-                this.name = name;
+        public void setFirstname(String firstname) {
+                this.firstname = firstname;
         }
 
-        public String getSurname() {
-                return surname;
+        public String getLastname() {
+                return lastname;
         }
 
-        public void setSurname(String surname) {
-                this.surname = surname;
+        public void setLastname(String lastname) {
+                this.lastname = lastname;
         }
 
         public LocalDate getDateOfBirth() {
@@ -47,12 +47,12 @@ public class ClientDTO implements Serializable {
                 this.dateOfBirth = dateOfBirth;
         }
 
-        public String getEmailAddress() {
-                return emailAddress;
+        public String getEmail() {
+                return email;
         }
 
-        public void setEmailAddress(String emailAddress) {
-                this.emailAddress = emailAddress;
+        public void setEmail(String email) {
+                this.email = email;
         }
 
         public String getPassword() {

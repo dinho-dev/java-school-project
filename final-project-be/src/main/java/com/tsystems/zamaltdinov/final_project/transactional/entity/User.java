@@ -1,5 +1,6 @@
 package com.tsystems.zamaltdinov.final_project.transactional.entity;
 
+import com.tsystems.zamaltdinov.final_project.security.token.Token;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -40,11 +41,12 @@ public class User implements UserDetails {
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Role role;
+    @OneToMany(mappedBy = "user")
+    private List<Token> tokens;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
-
     @Override
     public String getPassword() {
         return password;
@@ -73,5 +75,24 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+    @OneToMany(mappedBy = "userByUserId")
+    private Collection<AddressEntity> addressesById;
+    @OneToMany(mappedBy = "userByUserId")
+    private Collection<OrderEntity> ordersById;
+    public Collection<AddressEntity> getAddressesById() {
+        return addressesById;
+    }
+
+    public void setAddressesById(Collection<AddressEntity> addressesById) {
+        this.addressesById = addressesById;
+    }
+
+    public Collection<OrderEntity> getOrdersById() {
+        return ordersById;
+    }
+
+    public void setOrdersById(Collection<OrderEntity> ordersById) {
+        this.ordersById = ordersById;
     }
 }
