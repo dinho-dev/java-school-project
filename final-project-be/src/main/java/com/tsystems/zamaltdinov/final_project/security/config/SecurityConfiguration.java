@@ -1,6 +1,7 @@
 package com.tsystems.zamaltdinov.final_project.security.config;
 
 import jakarta.servlet.Filter;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+import static com.tsystems.zamaltdinov.final_project.transactional.entity.Role.ADMIN;
 
 @Configuration
 @EnableWebSecurity
@@ -28,8 +30,8 @@ public class SecurityConfiguration {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/v1/auth/**")
-                .permitAll()
+                .requestMatchers("/api/v1/auth/**", "/api/v1/products","/api/v1/categories").permitAll()
+                .requestMatchers("/api/v1/create**","/api/v1/products/delete**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()

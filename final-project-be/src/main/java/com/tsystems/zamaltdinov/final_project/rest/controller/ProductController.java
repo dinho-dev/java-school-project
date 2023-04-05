@@ -34,7 +34,7 @@ public class ProductController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO) {
         try {
             ProductDTO _product = productService.save(productDTO);
@@ -56,7 +56,7 @@ public class ProductController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deleteProduct(@PathVariable("id") UUID id) {
         try {
             productService.deleteById(id);
