@@ -6,7 +6,7 @@ CREATE TABLE store.user
     firstname          VARCHAR(100),
     lastname           VARCHAR(100),
     date_of_birth      DATE,
-    email              VARCHAR(100),
+    email              VARCHAR(100) UNIQUE,
     password           VARCHAR(250),
     role               VARCHAR(10)
 );
