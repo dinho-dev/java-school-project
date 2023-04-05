@@ -5,14 +5,36 @@ import {
     MenuFoldOutlined,
     MenuUnfoldOutlined
 } from '@ant-design/icons';
-import { Layout, Menu, theme, Pagination } from 'antd';
+import { Layout, Menu, theme, Pagination, Button } from 'antd';
 import ProductList from "./pages/products/list";
 import {Home} from "./pages/Home";
 import {About} from "./pages/About";
 import CreateProductForm from "./pages/products/create";
 import EditProductForm from "./pages/products/edit";
+import RegistrationForm from "./pages/Registration";
+import Login from "./pages/Login";
+import LogoutButton from "./components/LogoutButton";
 
 const { Header, Sider, Content } = Layout;
+
+const HeaderButtons = () => {
+    const token = localStorage.getItem('token');
+
+    return (
+        <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginTop: '-50px', marginRight: '24px' }}>
+            {token ? <LogoutButton /> : (
+                <>
+                    <Button type="primary">
+                        <Link to="/login">Login</Link>
+                    </Button>
+                    <Button type="primary" style={{ marginLeft: '10px' }}>
+                        <Link to="/register">Register</Link>
+                    </Button>
+                </>
+            )}
+        </div>
+    );
+};
 
 const App: React.FC = () => {
     const [collapsed, setCollapsed] = useState(false);
@@ -45,6 +67,8 @@ const App: React.FC = () => {
                         className: 'trigger',
                         onClick: () => setCollapsed(!collapsed),
                     })}
+                    <HeaderButtons  />
+
                 </Header>
                 <Content
                     style={{
@@ -57,6 +81,9 @@ const App: React.FC = () => {
                     <Routes>
                         <Route path="/home" element={<Home />} />
                         <Route path="/products" element={<ProductList />} />
+                        <Route path="/register" element={<RegistrationForm />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/logout" element={<LogoutButton />} />
                         <Route path="/about" element={<About />} />
                         <Route path="/product/create" element={<CreateProductForm/>} />
                         <Route path="/product/edit" element={<EditProductForm/>} />
