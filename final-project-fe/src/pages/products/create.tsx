@@ -3,10 +3,11 @@ import axios from "axios";
 import { Form, Input, Select, Button, message } from "antd";
 import '@ant-design/cssinjs';
 import { useNavigate } from "react-router-dom";
-
+import {Simulate} from "react-dom/test-utils";
+import error = Simulate.error;
 const CreateProductForm = () => {
     const [form] = Form.useForm();
-    const navigate = useNavigate(); // add useNavigate hook
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
 
     interface MyFormValues {
@@ -19,15 +20,20 @@ const CreateProductForm = () => {
         quantityInStock: number;
         imageUrl: string;
     }
-
-    const onFinish = async (values: MyFormValues) => { // update type of values to MyFormValues
+    const token = localStorage.getItem('token');
+    const onFinish = async (values: MyFormValues) => {
         setLoading(true);
         try {
-            await axios.post("http://localhost:8080/api/v1/products", values);
-            message.success("Product created successfully!"); // update success message
-            form.resetFields(); // reset form fields
-            navigate("/product"); // navigate to product page
+            await axios.post("http://localhost:8080/api/v1/products/create", values, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            message.success("Product created successfully!");
+            form.resetFields();
+            navigate("/product");
         } catch (error) {
+            console.log(error)
             message.error("Error creating product. Please try again.");
         }
         setLoading(false);
@@ -140,4 +146,4 @@ const CreateProductForm = () => {
     );
 };
 
-export default CreateProductForm; // don't forget to export the component
+export default CreateProductForm;

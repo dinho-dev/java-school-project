@@ -66,7 +66,7 @@ const App: React.FC = () => {
                         <Route path="/logout" element={<LogoutButton />} />
                         <Route path="/about" element={<About />} />
                         <Route path="/product/create" element={<CreateProductForm/>} />
-                        <Route path="/product/edit/${id}" element={<EditProductForm/>} />
+                        <Route path="/product/edit" element={<EditProductForm/>} />
                     </Routes>
                 </Content>
                 <Pagination

@@ -142,7 +142,9 @@ const ProductListConst = () => {
         <div>
             <div>
                 <Link to="/product/create">
+                    {user.role === 'ADMIN' && (
                     <Button type="primary">Create</Button>
+                    )}
                 </Link>
                 <Select defaultValue={selectedCategory} onChange={handleCategoryChange} style={{ width: 120 }}>
                     <Option value={0}>All Categories</Option>
