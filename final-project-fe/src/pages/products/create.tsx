@@ -31,7 +31,7 @@ const CreateProductForm = () => {
             });
             message.success("Product created successfully!");
             form.resetFields();
-            navigate("/product");
+            navigate("/products");
         } catch (error) {
             console.log(error)
             message.error("Error creating product. Please try again.");

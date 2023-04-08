@@ -45,8 +45,9 @@ public class ProductController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<ProductDTO> updateProduct(@PathVariable("id") UUID id, @RequestBody ProductDTO productDTO) {
+        productDTO.setId(id);
         Optional<ProductDTO> productData = productService.update(id, productDTO);
 
         if (productData.isPresent()) {

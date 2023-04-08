@@ -40,9 +40,9 @@ const EditProductForm = () => {
     const onFinish = async (values: MyFormValues) => {
         setLoading(true);
         try {
-            await axios.put(`http://localhost:8080/api/v1/products/${id}`, values);
+            await axios.put(`http://localhost:8080/api/v1/products/update/${id}`, values);
             message.success('Product updated successfully!');
-            navigate("/product");
+            navigate("/products");
         } catch (error) {
             message.error('Error updating product. Please try again.');
         }
