@@ -1,16 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, {ChangeEvent, useContext, useEffect, useState} from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { Card, Button, Row, Col, Space, Select, Slider } from "antd";
+import { Card, Button, Row, Col, Select, Slider, Input } from "antd";
 import Image from "antd/es/image";
+import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
+import {Simulate} from "react-dom/test-utils";
+import error = Simulate.error;
 
-import {
-    DeleteOutlined, DollarCircleOutlined,
-    EditOutlined,
-    FilterOutlined,
-} from "@ant-design/icons";
-
-import type { SpaceSize } from "antd/es/space";
 interface Product {
     id: string;
     categoryId: number;
@@ -22,23 +18,24 @@ interface Product {
     quantityInStock: number;
     imageUrl: string;
 }
+interface User {
+    role: string;
+}
 
 const { Option } = Select;
 
 const marks = {
     0: "$0",
-    500: "$500",
-    1000: "$1000",
+    750: "$750",
     1500: "$1500",
-    2000: "$2000",
-    2500: "$2500",
+    2250: "2250",
+    3000: "$3000"
 };
 
 const ProductListConst = () => {
     const [products, setProducts] = useState<Product[]>([]);
     const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
     const navigate = useNavigate();
-    const [selectedParameter, setSelectedParameter] = useState<string>("");
     const [selectedPriceRange, setSelectedPriceRange] = useState<number[]>([
         0,
         3000,
@@ -59,6 +56,15 @@ const ProductListConst = () => {
         });
         return sortedProducts;
     };
+    const [user, setUser] = useState<User>({ role: '' });
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        const role = localStorage.getItem('role');
+
+        if (token && role) {
+            setUser({ role });
+        }
+    }, []);
     useEffect(() => {
         axios.get("http://localhost:8080/api/v1/products").then((response) => {
             const data = response.data;
@@ -69,11 +75,7 @@ const ProductListConst = () => {
 
     useEffect(() => {
         let tempProducts = products;
-        if (selectedParameter) {
-            tempProducts = tempProducts.filter((product) =>
-                product.parameters.includes(selectedParameter)
-            );
-        }
+
         tempProducts = tempProducts.filter(
             (product) =>
                 product.price >= selectedPriceRange[0] &&
@@ -91,19 +93,8 @@ const ProductListConst = () => {
         }
         tempProducts = sortProductsByWeight(tempProducts);
         setFilteredProducts(tempProducts);
-    }, [selectedParameter, selectedPriceRange, selectedCategory, selectedWeight, products, sortOrder]);
+    }, [selectedPriceRange, selectedCategory, selectedWeight, products, sortOrder]);
 
-
-    const handleDelete = async (id: string) => {
-        await axios.delete(`http://localhost:8080/api/v1/products/${id}`);
-        setProducts((prevProducts) =>
-            prevProducts.filter((product) => product.id !== id)
-        );
-    };
-
-    const handleSelectChange = (value: string) => {
-        setSelectedParameter(value);
-    };
 
     const handlePriceRangeChange = (value: number[]) => {
         setSelectedPriceRange(value);
@@ -119,7 +110,34 @@ const ProductListConst = () => {
     const handleSortChange = () => {
         setIsAscending(!isAscending);
     };
+    const { Search } = Input;
+/*    const onSearch = (value: string) => console.log(value);*/
+    const [searchText, setSearchText] = useState("");
 
+    const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
+        const searchText = event.target.value.toLowerCase();
+        const filteredProducts = products.filter((product) => {
+            const title = product.title.toLowerCase();
+            const parameters = product.parameters.toLowerCase();
+            return title.includes(searchText) || parameters.includes(searchText);
+        });
+        setFilteredProducts(filteredProducts);
+        setSearchText(event.target.value);
+    };
+    const token = localStorage.getItem('token');
+    const handleDelete = async (id: string) => {
+        await axios.delete(`http://localhost:8080/api/v1/products/delete/${id}`,
+            {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+        setProducts((prevProducts) =>
+            prevProducts.filter((product) => product.id !== id)
+        );
+        console.log(error)
+    };
     return (
         <div>
             <div>
@@ -143,23 +161,14 @@ const ProductListConst = () => {
                     <Option value="asc">Ascending</Option>
                     <Option value="desc">Descending</Option>
                 </Select>
-
-                <Select
-                    value={selectedParameter}
-                    onChange={handleSelectChange}
-                    style={{ width: 120, marginLeft: 16 }}
-                >
-                    <Option value="">All</Option>
-                    <Option value="parameter">black</Option>
-                    <Option value="parameter2">Parameter 2</Option>
-                    <Option value="parameter3">Parameter 3</Option>
-                </Select>
+                <Search type="text" placeholder="Search products" value={searchText} onChange={handleSearch} style={{ width: 200 }} />
                 <div style={{ marginLeft: 16}}>
                     <Slider
                         range
                         min={0}
                         max={3000}
                         step={50}
+                        marks={marks}
                         onChange={handlePriceRangeChange}
                         style={{ width: 240 }}
                     />
@@ -183,20 +192,37 @@ const ProductListConst = () => {
                         >
                             <Card.Meta
                                 title={product.title}
-                                description={`$${product.price}`}
+                                description={
+                                    <div>
+                                        <div style={{ fontWeight: "bold", fontSize: 18, marginBottom: 8 }}>
+                                            ${product.price}
+                                        </div>
+                                        <div style={{ marginTop: 8 }}>
+                                            <span style={{ fontWeight: "bold" }}>Parameters:</span> {product.parameters}
+                                        </div>
+                                        <div style={{ marginTop: 8 }}>
+                                            <span style={{ fontWeight: "bold" }}>Weight:</span> {product.weight}
+                                        </div>
+                                    </div>
+                                }
                             />
                             <div style={{ marginTop: 16 }}>
                                 <Link to={`/product/edit/${product.id}`}>
-                                    <Button icon={<EditOutlined />} type="primary" />
+                                    {user.role === 'ADMIN' && (
+                                        <Button icon={<EditOutlined />} type="primary" />
+                                    )}
                                 </Link>
-                                <Button
-                                    icon={<DeleteOutlined />}
-                                    type="primary"
-                                    danger
-                                    style={{ marginLeft: 8 }}
-                                    onClick={() => handleDelete(product.id)}
-                                />
+                                {user.role === 'ADMIN' && (
+                                    <Button
+                                        icon={<DeleteOutlined />}
+                                        type="primary"
+                                        danger
+                                        style={{ marginLeft: 8 }}
+                                        onClick={() => handleDelete(product.id)}
+                                    />
+                                )}
                             </div>
+
                         </Card>
                     </Col>
                 ))}
@@ -206,7 +232,6 @@ const ProductListConst = () => {
 };
 
 function ProductList() {
-    const currentUser = { role: 'ADMIN' };
     return (
         <div className="Product">
             <ProductListConst />
