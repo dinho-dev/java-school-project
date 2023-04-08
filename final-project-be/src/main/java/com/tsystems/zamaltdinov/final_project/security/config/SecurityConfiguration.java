@@ -30,7 +30,7 @@ public class SecurityConfiguration {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/v1/auth/**", "/api/v1/products","/api/v1/categories").permitAll()
+                .requestMatchers("/api/v1/auth/**", "/api/v1/products","/api/v1/categories/**").permitAll()
                 .requestMatchers("/api/v1/create**","/api/v1/products/delete**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
@@ -43,8 +43,8 @@ public class SecurityConfiguration {
                 .logout()
                 .logoutUrl("/api/v1/auth/logout")
                 .addLogoutHandler(logoutHandler)
-                .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
-        ;
+                .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext());
+        http.cors();
         return http.build();
     }
 }
