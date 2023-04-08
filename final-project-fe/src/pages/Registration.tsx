@@ -6,7 +6,7 @@ import axios from "axios";
 
 const RegistrationForm = () => {
     const [form] = Form.useForm();
-    const navigate = useNavigate(); // add useNavigate hook
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
 
     interface RegFormValues {
@@ -18,13 +18,13 @@ const RegistrationForm = () => {
     }
 
 
-    const onFinish = async (values: RegFormValues) => { // update type of values to MyFormValues
+    const onFinish = async (values: RegFormValues) => {
         setLoading(true);
         try {
             await axios.post("http://localhost:8080/api/v1/auth/register", values);
-            message.success("Your account successfully  created!"); // update success message
-            form.resetFields(); // reset form fields
-            navigate("/products"); // navigate to product page
+            message.success("Your account successfully  created!");
+            form.resetFields();
+            navigate("/products");
         } catch (error) {
             message.error("Error creating a new account. Please try again.");
         }
