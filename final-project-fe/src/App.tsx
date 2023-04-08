@@ -69,14 +69,6 @@ const App: React.FC = () => {
                         <Route path="/product/edit" element={<EditProductForm/>} />
                     </Routes>
                 </Content>
-                <Pagination
-                    style={{
-                        textAlign: 'center',
-                        marginBottom: '24px',
-                    }}
-                    defaultCurrent={1}
-                    total={50}
-                />
             </Layout>
         </Layout>
     );

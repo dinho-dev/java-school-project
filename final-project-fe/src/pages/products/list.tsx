@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useContext, useEffect, useState} from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { Card, Button, Row, Col, Select, Slider, Input } from "antd";
+import {Card, Button, Row, Col, Select, Slider, Input, message, Pagination} from "antd";
 import Image from "antd/es/image";
 import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import {Simulate} from "react-dom/test-utils";
@@ -133,11 +133,21 @@ const ProductListConst = () => {
                     Authorization: `Bearer ${token}`
                 }
             });
+        message.warning("Product was deleted!");
         setProducts((prevProducts) =>
             prevProducts.filter((product) => product.id !== id)
         );
         console.log(error)
     };
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageSize, setPageSize] = useState(9);
+
+    const startIndex = (currentPage - 1) * pageSize;
+    const endIndex = startIndex + pageSize;
+
+    const slicedProducts = filteredProducts.slice(startIndex, endIndex);
+
+
     return (
         <div>
             <div>
@@ -180,7 +190,7 @@ const ProductListConst = () => {
                 </div>
             </div>
             <Row gutter={[12, 12]}>
-                {filteredProducts.map((product) => (
+                {slicedProducts.map((product) => (
                     <Col xs={24} sm={12} md={8} key={product.id}>
                         <Card
                             hoverable
@@ -229,6 +239,14 @@ const ProductListConst = () => {
                     </Col>
                 ))}
             </Row>
+            <div>
+                <Pagination
+                    total={filteredProducts.length}
+                    pageSize={pageSize}
+                    current={currentPage}
+                    onChange={(page, pageSize) => setCurrentPage(page)}
+                />
+            </div>
         </div>
     );
 };
