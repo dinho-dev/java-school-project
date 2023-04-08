@@ -1,5 +1,5 @@
 import { Routes, Route, Link } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, {useContext, useState} from 'react';
 import {
     HomeTwoTone, InfoCircleOutlined, LaptopOutlined,
     MenuFoldOutlined,
@@ -14,34 +14,14 @@ import EditProductForm from "./pages/products/edit";
 import RegistrationForm from "./pages/Registration";
 import Login from "./pages/Login";
 import LogoutButton from "./components/LogoutButton";
-
+import HeaderButtons from "./components/HeaderButtons";
 const { Header, Sider, Content } = Layout;
-
-const HeaderButtons = () => {
-    const token = localStorage.getItem('token');
-
-    return (
-        <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center', marginTop: '-50px', marginRight: '24px' }}>
-            {token ? <LogoutButton /> : (
-                <>
-                    <Button type="primary">
-                        <Link to="/login">Login</Link>
-                    </Button>
-                    <Button type="primary" style={{ marginLeft: '10px' }}>
-                        <Link to="/register">Register</Link>
-                    </Button>
-                </>
-            )}
-        </div>
-    );
-};
 
 const App: React.FC = () => {
     const [collapsed, setCollapsed] = useState(false);
     const {
         token: { colorBgContainer },
     } = theme.useToken();
-
     return (
         <Layout>
             <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -86,7 +66,7 @@ const App: React.FC = () => {
                         <Route path="/logout" element={<LogoutButton />} />
                         <Route path="/about" element={<About />} />
                         <Route path="/product/create" element={<CreateProductForm/>} />
-                        <Route path="/product/edit" element={<EditProductForm/>} />
+                        <Route path="/product/edit/${id}" element={<EditProductForm/>} />
                     </Routes>
                 </Content>
                 <Pagination

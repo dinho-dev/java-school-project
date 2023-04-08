@@ -26,9 +26,10 @@ const Login: React.FC = () => {
             const response = await axios.post("http://localhost:8080/api/v1/auth/authenticate", values);
             if (response.status === 200) {
                 const { token } = response.data;
+                const { role } = response.data;
                 localStorage.setItem('token', token);
+                localStorage.setItem('role', role);
                 message.success("Logged in successfully");
-                // Redirect to the dashboard page
                 window.location.href = "/products";
             } else {
                 message.error("Invalid username or password");

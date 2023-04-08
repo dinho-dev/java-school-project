@@ -6,7 +6,8 @@ const LogoutButton = () => {
         try {
             await axios.post('http://localhost:8080/api/v1/auth/logout');
             localStorage.removeItem('token');
-            window.location.reload(); // Refresh the page to update the UI
+            localStorage.removeItem('role');
+            window.location.reload();
         } catch (error) {
             console.error(error);
         }
