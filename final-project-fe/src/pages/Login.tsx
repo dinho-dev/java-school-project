@@ -27,8 +27,10 @@ const Login: React.FC = () => {
             if (response.status === 200) {
                 const { token } = response.data;
                 const { role } = response.data;
+                const { id } = response.data;
                 localStorage.setItem('token', token);
                 localStorage.setItem('role', role);
+                localStorage.setItem('id', id);
                 message.success("Logged in successfully");
                 window.location.href = "/products";
             } else {
