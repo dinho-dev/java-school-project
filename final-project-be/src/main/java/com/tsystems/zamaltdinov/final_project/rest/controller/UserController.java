@@ -9,9 +9,10 @@ import com.tsystems.zamaltdinov.final_project.business.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://localhost:5432")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
@@ -19,10 +20,12 @@ public class UserController {
     UserService userService;
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public List<UserDTO> findAllUsers() {
         return userService.findAllUsers();
     }
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('USER')")
     public ResponseEntity<UserDTO> getUserById(@PathVariable("id") UUID id) {
         Optional<UserDTO> userData = userService.findById(id);
 
@@ -43,7 +46,7 @@ public class UserController {
         }
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<UserDTO> updateUser(@PathVariable("id") UUID id, @RequestBody UserDTO user) {
         Optional<UserDTO> userData = userService.update(id, user);
 
@@ -54,7 +57,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") UUID id) {
         try {
             userService.deleteById(id);

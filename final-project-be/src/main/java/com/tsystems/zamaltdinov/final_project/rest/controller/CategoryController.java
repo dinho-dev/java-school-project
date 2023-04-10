@@ -42,8 +42,9 @@ public class CategoryController {
         }
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<CategoryDTO> updateCategory(@PathVariable("id") int id, @RequestBody CategoryDTO category) {
+        category.setId(id);
         Optional<CategoryDTO> categoryData = categoryService.update(id, category);
 
         if (categoryData.isPresent()) {
