@@ -3,7 +3,7 @@ import React, {useContext, useState} from 'react';
 import {
     HomeTwoTone, InfoCircleOutlined, LaptopOutlined,
     MenuFoldOutlined,
-    MenuUnfoldOutlined
+    MenuUnfoldOutlined, UserOutlined
 } from '@ant-design/icons';
 import { Layout, Menu, theme, Pagination, Button } from 'antd';
 import ProductList from "./pages/products/list";
@@ -15,6 +15,11 @@ import RegistrationForm from "./pages/Registration";
 import Login from "./pages/Login";
 import LogoutButton from "./components/LogoutButton";
 import HeaderButtons from "./components/HeaderButtons";
+import EditProfileForm from "./pages/profile/edit";
+import {Profile} from "./pages/profile";
+import Address from "./pages/profile/address";
+import {Dashboard} from "./pages/admin-dashboard/dashboard";
+/*import {CheckoutPage} from "./pages/checkout";*/
 const { Header, Sider, Content } = Layout;
 
 const App: React.FC = () => {
@@ -22,6 +27,9 @@ const App: React.FC = () => {
     const {
         token: { colorBgContainer },
     } = theme.useToken();
+    const role = localStorage.getItem('role');
+    const isUser = role === 'USER';
+    const isAdmin = role === 'ADMIN';
     return (
         <Layout>
             <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -36,9 +44,17 @@ const App: React.FC = () => {
                     <Menu.Item key="2" icon={<LaptopOutlined />}>
                         <Link to="/products">Products</Link>
                     </Menu.Item>
-                    <Menu.Item key="3" icon={<InfoCircleOutlined />}>
-                        <Link to="/about">About</Link>
-                    </Menu.Item>
+                    {isUser && (
+                        <Menu.Item key="3" icon={<UserOutlined />}>
+                            <Link to="/profile">Profile</Link>
+                        </Menu.Item>
+                    )}
+                    {isAdmin && (
+                        <Menu.Item key="3" icon={<UserOutlined />}>
+                            <Link to="/dashboard">Dashboard</Link>
+                         </Menu.Item>
+                    )}
+
                 </Menu>
             </Sider>
             <Layout className="site-layout">
@@ -60,7 +76,13 @@ const App: React.FC = () => {
                 >
                     <Routes>
                         <Route path="/home" element={<Home />} />
+                        <Route path="/profile/" element={<Profile />} />
+                        <Route path="/profile/edit/:id" element={<EditProfileForm />} />
+                        <Route path="/profile/address/:id" element={<Address />} />
                         <Route path="/products" element={<ProductList />} />
+                        <Route path="/dashboard" element={<Dashboard />} />
+                       {/* <Route path="/checkout" element={<CheckoutPage />} />*/}
+
                         <Route path="/register" element={<RegistrationForm />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/logout" element={<LogoutButton />} />

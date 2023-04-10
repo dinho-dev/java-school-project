@@ -1,9 +1,9 @@
 import React, {ChangeEvent, useContext, useEffect, useState} from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import {Card, Button, Row, Col, Select, Slider, Input, message, Pagination} from "antd";
+import {Card, Button, Row, Col, Select, Slider, Input, message, Pagination, Badge, Modal} from "antd";
 import Image from "antd/es/image";
-import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
+import {DeleteOutlined, EditOutlined, ShoppingCartOutlined} from "@ant-design/icons";
 import {Simulate} from "react-dom/test-utils";
 import error = Simulate.error;
 
@@ -16,6 +16,7 @@ interface Product {
     weight: string;
     volume: string;
     quantityInStock: number;
+    quantity:number;
     imageUrl: string;
 }
 interface User {
@@ -126,19 +127,29 @@ const ProductListConst = () => {
     };
     const token = localStorage.getItem('token');
     const handleDelete = async (id: string) => {
-        await axios.delete(`http://localhost:8080/api/v1/products/delete/${id}`,
-            {
-                method: "DELETE",
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-        message.warning("Product was deleted!");
-        setProducts((prevProducts) =>
-            prevProducts.filter((product) => product.id !== id)
-        );
-        console.log(error)
+        Modal.confirm({
+            title: 'Are you sure you want to delete this product?',
+            onOk: async () => {
+                await axios.delete(`http://localhost:8080/api/v1/products/delete/${id}`, {
+                    method: "DELETE",
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                message.warning("Product was deleted!");
+                setProducts((prevProducts) =>
+                    prevProducts.filter((product) => product.id !== id)
+                );
+            },
+            onCancel: () => {},
+        });
     };
+
+
+
+
+
+
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(9);
 
@@ -148,6 +159,88 @@ const ProductListConst = () => {
     const slicedProducts = filteredProducts.slice(startIndex, endIndex);
 
 
+
+
+
+
+
+
+    const [showCart, setShowCart] = useState<boolean>(false);
+    const [cartItems, setCartItems] = useState<Product[]>([]);
+
+    const addToCart = (product: Product) => {
+        const existingItemIndex = cartItems.findIndex(item => item.id === product.id);
+        if (existingItemIndex !== -1) {
+            // If the product is already in the cart, update its quantity instead of adding a new item
+            const updatedCartItems = [...cartItems];
+            updatedCartItems[existingItemIndex] = {
+                ...updatedCartItems[existingItemIndex],
+                quantity: updatedCartItems[existingItemIndex].quantity + 1,
+            };
+            setCartItems(updatedCartItems);
+
+        } else {
+            // Otherwise, add the new item to the cart
+            setCartItems(prevCartItems => [...prevCartItems, {...product, quantity: 1}]);
+        }
+
+        // Update the stored cart items in local storage
+        localStorage.setItem("cartItems", JSON.stringify([...cartItems, {...product, quantity: 1}]));
+    };
+
+    const removeFromCart = (productId: string) => {
+        const updatedCartItems = cartItems.filter((item) => item.id !== productId);
+        setCartItems(updatedCartItems);
+
+        // Update the stored cart items in local storage
+        localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
+    };
+
+
+    useEffect(() => {
+        const storedCartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
+        setCartItems(storedCartItems);
+    }, []);
+
+   /* useEffect(() => {
+        localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    }, [cartItems]);*/
+
+    const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
+
+
+
+
+    interface CartItemProps { // 3
+        item: Product;
+        removeFromCart: (productId: string) => void;
+    }
+
+    const CartItem: React.FC<CartItemProps> = ({ item, removeFromCart }) => {
+        return (
+            <Card className="cart-item">
+                <div className="cart-item-image">
+                    <img src={item.imageUrl} alt={item.title} style={{ maxWidth: '60px', marginRight: '16px' }} />
+                </div>
+                <div className="cart-item-details">
+                    <p className="cart-item-name">{item.title}</p>
+                    <p className="cart-item-price">{item.price}</p>
+                    <p className="cart-item-quantity">Quantity: {item.quantity}</p>
+                    <Button type="primary" danger ghost className="remove-from-cart" onClick={() => removeFromCart(item.id)}>
+                        Remove
+                    </Button>
+                </div>
+            </Card>
+
+        );
+    };
+    const handleCheckoutClick = () => {
+        // Navigate to the checkout page
+        navigate('/checkout');
+    };
+    const getTotalPrice = () => {
+        return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+    };
     return (
         <div>
             <div>
@@ -156,8 +249,30 @@ const ProductListConst = () => {
                     <Button type="primary">Create</Button>
                     )}
                 </Link>
+                <div className="header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', height: '80px', padding: '0 20px' }}>
+                    <div className="logo" style={{ fontSize: '24px', fontWeight: 'bold'}}>My Shop</div>
+                    <div className="cart" style={{ fontSize: '24px', fontWeight: 'bold' }}>
+                        <Badge count={totalQuantity}>
+                            <ShoppingCartOutlined style={{fontSize:'50px'}} onClick={() => setShowCart(!showCart)} />
+                        </Badge>
+                    </div>
+                </div>
+
+                {showCart && (
+                    <div className="cart">
+                        <div className="cart-items">
+                            {cartItems.map((item) => (
+                                <CartItem key={item.id} item={item} removeFromCart={removeFromCart} />
+                            ))}
+                        </div>
+                        <div className="cart-total">
+                            <p>Total: ${getTotalPrice()}</p>
+                            <Button type="primary" onClick={handleCheckoutClick}>Proceed to checkout</Button>
+                        </div>
+                    </div>
+                )}
                 <Select defaultValue={selectedCategory} onChange={handleCategoryChange} style={{ width: 120 }}>
-                    <Option value={0}>All Categories</Option>
+                    <Option value={0}>All Categories</Option> //todo: handle new category creation
                     <Option value={1}>Laptops</Option>
                     <Option value={2}>Smartphones</Option>
                     <Option value={3}>Headphones</Option>
@@ -193,7 +308,7 @@ const ProductListConst = () => {
                 {slicedProducts.map((product) => (
                     <Col xs={24} sm={12} md={8} key={product.id}>
                         <Card
-                            hoverable
+                            hoverable={true}
                             cover={
                                 <Image
                                     src={product.imageUrl}
@@ -218,11 +333,9 @@ const ProductListConst = () => {
                                     </div>
                                 }
                             />
-                            <div style={{ marginTop: 16 }}>
+                            <div style={{ marginTop: 16, display: 'flex', alignItems: 'center' }}>
                                 <Link to={`/product/edit/${product.id}`}>
-                                    {user.role === 'ADMIN' && (
-                                        <Button icon={<EditOutlined />} type="primary" />
-                                    )}
+                                    {user.role === 'ADMIN' && <Button icon={<EditOutlined />} type="primary" />}
                                 </Link>
                                 {user.role === 'ADMIN' && (
                                     <Button
@@ -233,8 +346,10 @@ const ProductListConst = () => {
                                         onClick={() => handleDelete(product.id)}
                                     />
                                 )}
+                                <div style={{ marginLeft: 'auto' }}>
+                                    <Button onClick={() => addToCart(product)}>Add to Cart</Button>
+                                </div>
                             </div>
-
                         </Card>
                     </Col>
                 ))}
