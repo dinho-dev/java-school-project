@@ -1,10 +1,14 @@
 package com.tsystems.zamaltdinov.final_project.rest.controller;
 
 import com.tsystems.zamaltdinov.final_project.business.dto.AddressDTO;
+import com.tsystems.zamaltdinov.final_project.business.dto.CategoryDTO;
 import com.tsystems.zamaltdinov.final_project.business.service.AddressService;
+import com.tsystems.zamaltdinov.final_project.transactional.entity.AddressEntity;
+import com.tsystems.zamaltdinov.final_project.transactional.repository.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +21,7 @@ import java.util.UUID;
 public class AddressController {
     @Autowired
     AddressService addressService;
+
     @GetMapping
     public List<AddressDTO> findAllAddresses() {
         return addressService.findAllAddresses();
@@ -63,5 +68,16 @@ public class AddressController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+  @GetMapping("/user/{id}")
+  public ResponseEntity<AddressDTO> getAddressByUserId(@PathVariable("id") UUID userId) {
+      Optional<AddressDTO> addressData = addressService.findByUserId(userId);
+
+      if (addressData.isPresent()) {
+          return new ResponseEntity<>(addressData.get(), HttpStatus.OK);
+      } else {
+          return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+      }
+  }
 }
 

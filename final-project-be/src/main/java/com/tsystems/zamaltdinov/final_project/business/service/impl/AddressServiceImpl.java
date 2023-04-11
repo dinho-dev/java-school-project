@@ -2,9 +2,12 @@ package com.tsystems.zamaltdinov.final_project.business.service.impl;
 
 
 import com.tsystems.zamaltdinov.final_project.business.dto.AddressDTO;
+import com.tsystems.zamaltdinov.final_project.business.dto.CategoryDTO;
 import com.tsystems.zamaltdinov.final_project.business.mapper.AddressMapper;
+import com.tsystems.zamaltdinov.final_project.business.mapper.CategoryMapper;
 import com.tsystems.zamaltdinov.final_project.business.service.AddressService;
 import com.tsystems.zamaltdinov.final_project.transactional.entity.AddressEntity;
+import com.tsystems.zamaltdinov.final_project.transactional.entity.CategoryEntity;
 import com.tsystems.zamaltdinov.final_project.transactional.repository.AddressRepository;
 import org.springframework.stereotype.Service;
 
@@ -63,5 +66,19 @@ public class AddressServiceImpl implements AddressService {
         }
         return result;
     }
+
+
+    @Override
+    public Optional<AddressDTO> findByUserId(UUID userId) {
+        Optional<AddressEntity> addressEntity = repository.findByUserId(userId);
+        return addressEntity.map(AddressMapper.MAPPER::fromEntityToDTO);
+    }
+
 }
 
+/*
+    @Override
+    public Optional<CategoryDTO> findById(Integer id) {
+        Optional<CategoryEntity> categoryEntity = repository.findById(id);
+        return categoryEntity.map(CategoryMapper.MAPPER::fromEntityToDTO);
+    }*/
