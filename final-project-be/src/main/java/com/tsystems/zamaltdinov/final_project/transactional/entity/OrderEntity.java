@@ -1,10 +1,16 @@
 package com.tsystems.zamaltdinov.final_project.transactional.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.UUID;
-
+@Getter
+@Setter
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "order", schema = "store", catalog = "postgres")
 public class OrderEntity {
@@ -30,6 +36,9 @@ public class OrderEntity {
     @Basic
     @Column(name = "order_status", insertable=false, updatable=false)
     private String orderStatus;
+    @Basic
+    @Column(name = "order_date", insertable=false, updatable=false)
+    private Date orderDate;
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", insertable=false, updatable=false)
     private User userByUserId;
@@ -51,119 +60,7 @@ public class OrderEntity {
     @OneToMany(mappedBy = "orderByOrderId")
     private Collection<OrderProductEntity> orderProductsById;
 
-    public OrderEntity() {
-    }
 
-    public OrderEntity(UUID id, UUID userId, UUID addressId, String paymentMethod, String deliveryMethod,
-                       String paymentStatus, String orderStatus, User userByUserId,
-                       AddressEntity addressByAddressId, PaymentMethodEntity paymentMethodByPaymentMethod,
-                       DeliveryMethodEntity deliveryMethodByDeliveryMethod,
-                       PaymentStatusEntity paymentStatusByPaymentStatus, OrderStatusEntity orderStatusByOrderStatus,
-                       Collection<OrderProductEntity> orderProductsById) {
-        this.id = id;
-        this.userId = userId;
-        this.addressId = addressId;
-        this.paymentMethod = paymentMethod;
-        this.deliveryMethod = deliveryMethod;
-        this.paymentStatus = paymentStatus;
-        this.orderStatus = orderStatus;
-        this.userByUserId = userByUserId;
-        this.addressByAddressId = addressByAddressId;
-        this.paymentMethodByPaymentMethod = paymentMethodByPaymentMethod;
-        this.deliveryMethodByDeliveryMethod = deliveryMethodByDeliveryMethod;
-        this.paymentStatusByPaymentStatus = paymentStatusByPaymentStatus;
-        this.orderStatusByOrderStatus = orderStatusByOrderStatus;
-        this.orderProductsById = orderProductsById;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public UUID getUserId() {
-        return userId;
-    }
-
-    public void setUserId(UUID userId) {
-        this.userId = userId;
-    }
-
-    public UUID getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(UUID addressId) {
-        this.addressId = addressId;
-    }
-
-    public String getPaymentMethod() {
-        return paymentMethod;
-    }
-
-    public void setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
-    }
-
-    public String getDeliveryMethod() {
-        return deliveryMethod;
-    }
-
-    public void setDeliveryMethod(String deliveryMethod) {
-        this.deliveryMethod = deliveryMethod;
-    }
-
-    public String getPaymentStatus() {
-        return paymentStatus;
-    }
-
-    public void setPaymentStatus(String paymentStatus) {
-        this.paymentStatus = paymentStatus;
-    }
-
-    public String getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(String orderStatus) {
-        this.orderStatus = orderStatus;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        OrderEntity that = (OrderEntity) o;
-
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
-        if (addressId != null ? !addressId.equals(that.addressId) : that.addressId != null) return false;
-        if (paymentMethod != null ? !paymentMethod.equals(that.paymentMethod) : that.paymentMethod != null)
-            return false;
-        if (deliveryMethod != null ? !deliveryMethod.equals(that.deliveryMethod) : that.deliveryMethod != null)
-            return false;
-        if (paymentStatus != null ? !paymentStatus.equals(that.paymentStatus) : that.paymentStatus != null)
-            return false;
-        if (orderStatus != null ? !orderStatus.equals(that.orderStatus) : that.orderStatus != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (userId != null ? userId.hashCode() : 0);
-        result = 31 * result + (addressId != null ? addressId.hashCode() : 0);
-        result = 31 * result + (paymentMethod != null ? paymentMethod.hashCode() : 0);
-        result = 31 * result + (deliveryMethod != null ? deliveryMethod.hashCode() : 0);
-        result = 31 * result + (paymentStatus != null ? paymentStatus.hashCode() : 0);
-        result = 31 * result + (orderStatus != null ? orderStatus.hashCode() : 0);
-        return result;
-    }
 
     public User getUserByUserId() {
         return userByUserId;

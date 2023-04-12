@@ -1,6 +1,7 @@
 package com.tsystems.zamaltdinov.final_project.business.dto;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -12,6 +13,7 @@ public class OrderDTO implements Serializable {
     private String deliveryMethod;
     private String paymentStatus;
     private String orderStatus;
+    private Date orderDate;
 
     public List<ProductDTO> getProducts() {
         return products;
@@ -27,7 +29,7 @@ public class OrderDTO implements Serializable {
     }
 
     public OrderDTO(UUID id, UUID clientId, UUID addressId, String paymentMethod, String deliveryMethod,
-                    String paymentStatus, String orderStatus, List<ProductDTO> products) {
+                    String paymentStatus, String orderStatus, Date orderDate, List<ProductDTO> products) {
         this.id = id;
         this.clientId = clientId;
         this.addressId = addressId;
@@ -35,6 +37,7 @@ public class OrderDTO implements Serializable {
         this.deliveryMethod = deliveryMethod;
         this.paymentStatus = paymentStatus;
         this.orderStatus = orderStatus;
+        this.orderDate = orderDate;
     }
 
     public UUID getId() {
@@ -91,6 +94,14 @@ public class OrderDTO implements Serializable {
 
     public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(Date orderDate) {
+        this.orderDate = orderDate;
     }
 }
 

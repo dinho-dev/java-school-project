@@ -63,27 +63,27 @@ VALUES ('pending payment', 'Only applicable to payment methods with "delayed suc
        ('delivered', 'The delivery has been completed.');
 
 INSERT INTO store.order (id, user_id, address_id, payment_method, delivery_method, payment_status,
-                         order_status)
+                         order_status, order_date)
 VALUES ('44235aac-aa25-11ed-afa1-0242ac120002', 'aa5366f0-aa25-11ed-afa1-0242ac120002',
-        'cdf71b60-aa25-11ed-afa1-0242ac120002', 'Cash', 'Pick-up', 'Paid', 'delivered'),
+        'cdf71b60-aa25-11ed-afa1-0242ac120002', 'Cash', 'Pick-up', 'Paid', 'delivered', '2023-01-01'),
        ('44235f3e-aa25-11ed-afa1-0242ac120002', 'aa536f42-aa25-11ed-afa1-0242ac120002',
-        'cdf7218c-aa25-11ed-afa1-0242ac120002', 'By card', 'DHL', 'Pending', 'pending payment'),
+        'cdf7218c-aa25-11ed-afa1-0242ac120002', 'By card', 'DHL', 'Pending', 'pending payment', '2023-02-01'),
        ('44236056-aa25-11ed-afa1-0242ac120002', 'aa537104-aa25-11ed-afa1-0242ac120002',
-        'cdf722ea-aa25-11ed-afa1-0242ac120002', 'By card', 'DHL', 'Pending', 'pending payment'),
+        'cdf722ea-aa25-11ed-afa1-0242ac120002', 'By card', 'DHL', 'Pending', 'pending payment', '2023-03-31'),
        ('44236212-aa25-11ed-afa1-0242ac120002', 'aa5373e0-aa25-11ed-afa1-0242ac120002',
-        'cdf72434-aa25-11ed-afa1-0242ac120002', 'By card', 'International', 'Paid', 'shipped'),
+        'cdf72434-aa25-11ed-afa1-0242ac120002', 'By card', 'International', 'Paid', 'shipped', '2023-03-01'),
        ('44236326-aa25-11ed-afa1-0242ac120002', 'aa53756c-aa25-11ed-afa1-0242ac120002',
-        'cdf7257a-aa25-11ed-afa1-0242ac120002', 'Cash', 'Pick-up', 'Pending', 'shipped'),
+        'cdf7257a-aa25-11ed-afa1-0242ac120002', 'Cash', 'Pick-up', 'Pending', 'shipped', '2023-03-10'),
        ('4423641c-aa25-11ed-afa1-0242ac120002', 'aa5376a6-aa25-11ed-afa1-0242ac120002',
-        'cdf726c0-aa25-11ed-afa1-0242ac120002', 'By card', 'DHL', 'Paid', 'delivered'),
+        'cdf726c0-aa25-11ed-afa1-0242ac120002', 'By card', 'DHL', 'Paid', 'delivered', '2023-15-01'),
        ('4423650a-aa25-11ed-afa1-0242ac120002', 'aa53780c-aa25-11ed-afa1-0242ac120002',
-        'cdf72806-aa25-11ed-afa1-0242ac120002', 'Cash', 'Pick-up', 'Pending', 'shipped'),
+        'cdf72806-aa25-11ed-afa1-0242ac120002', 'Cash', 'Pick-up', 'Pending', 'shipped', '2023-18-01'),
        ('442365f0-aa25-11ed-afa1-0242ac120002', 'aa53792e-aa25-11ed-afa1-0242ac120002',
-        'cdf7294c-aa25-11ed-afa1-0242ac120002', 'By card', 'International', 'Pending', 'pending payment'),
+        'cdf7294c-aa25-11ed-afa1-0242ac120002', 'By card', 'International', 'Pending', 'pending payment', '2023-20-01'),
        ('442366d8-aa25-11ed-afa1-0242ac120002', 'aa537a6c-aa25-11ed-afa1-0242ac120002',
-        'cdf72a92-aa25-11ed-afa1-0242ac120002', 'By card', 'DHL', 'Paid', 'delivered'),
+        'cdf72a92-aa25-11ed-afa1-0242ac120002', 'By card', 'DHL', 'Paid', 'delivered', '2023-03-24'),
        ('442367c2-aa25-11ed-afa1-0242ac120002', 'aa537b8e-aa25-11ed-afa1-0242ac120002',
-        'cdf72bd8-aa25-11ed-afa1-0242ac120002', 'By card', 'International', 'Paid', 'pending shipment');
+        'cdf72bd8-aa25-11ed-afa1-0242ac120002', 'By card', 'International', 'Paid', 'pending shipment', '2023-01-07');
 
 INSERT INTO store.category (id, name)
 VALUES (1, 'Laptops'),

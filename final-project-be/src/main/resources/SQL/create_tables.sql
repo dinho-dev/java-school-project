@@ -79,6 +79,7 @@ CREATE TABLE store.order
     delivery_method  VARCHAR(50),
     payment_status   VARCHAR(50),
     order_status     VARCHAR(50),
+    order_date       DATE,
     FOREIGN KEY (user_id) REFERENCES store.user (id),
     FOREIGN KEY (address_id) REFERENCES store.address (id),
     FOREIGN KEY (payment_method) REFERENCES store.payment_method (id),

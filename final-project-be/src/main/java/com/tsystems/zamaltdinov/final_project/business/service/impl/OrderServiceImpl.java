@@ -1,15 +1,14 @@
 package com.tsystems.zamaltdinov.final_project.business.service.impl;
 
+import com.tsystems.zamaltdinov.final_project.business.dto.AddressDTO;
 import com.tsystems.zamaltdinov.final_project.business.dto.CreateOrderWithProductsDTO;
 import com.tsystems.zamaltdinov.final_project.business.dto.OrderDTO;
 import com.tsystems.zamaltdinov.final_project.business.dto.ProductDTO;
+import com.tsystems.zamaltdinov.final_project.business.mapper.AddressMapper;
 import com.tsystems.zamaltdinov.final_project.business.mapper.OrderMapper;
 import com.tsystems.zamaltdinov.final_project.business.mapper.ProductMapper;
 import com.tsystems.zamaltdinov.final_project.business.service.OrderService;
-import com.tsystems.zamaltdinov.final_project.transactional.entity.OrderEntity;
-import com.tsystems.zamaltdinov.final_project.transactional.entity.OrderProductEntity;
-import com.tsystems.zamaltdinov.final_project.transactional.entity.OrderProductEntityPK;
-import com.tsystems.zamaltdinov.final_project.transactional.entity.ProductEntity;
+import com.tsystems.zamaltdinov.final_project.transactional.entity.*;
 import com.tsystems.zamaltdinov.final_project.transactional.repository.OrderProductRepository;
 import com.tsystems.zamaltdinov.final_project.transactional.repository.OrderRepository;
 import com.tsystems.zamaltdinov.final_project.transactional.repository.ProductRepository;
@@ -119,5 +118,10 @@ public class OrderServiceImpl implements OrderService {
         OrderDTO orderDTO = OrderMapper.MAPPER.fromEntityToDTO(savedOrder);
         orderDTO.setProducts(order.getProducts());
         return orderDTO;
+    }
+    @Override
+    public Optional<OrderDTO> findByUserId(UUID userId) {
+        Optional<OrderEntity> orderEntity = orderRepository.findByUserId(userId);
+        return orderEntity.map(OrderMapper.MAPPER::fromEntityToDTO);
     }
 }

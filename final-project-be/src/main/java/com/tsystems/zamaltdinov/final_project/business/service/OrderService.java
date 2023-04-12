@@ -18,6 +18,7 @@ public interface OrderService {
     OrderDTO save(OrderDTO order);
 
     List<OrderDTO> findAllOrders();
+    Optional<OrderDTO> findByUserId(UUID userId);
 
     OrderDTO createOrderWithProductsDTO(CreateOrderWithProductsDTO order);
 }
