@@ -1,8 +1,7 @@
-import { useState, useEffect } from 'react';
-import {Form, Input, Button, message} from 'antd';
+import React, { useState, useEffect } from 'react';
+import {Form, Input, Button, message, Checkbox} from 'antd';
 import axios from 'axios';
 import '@ant-design/cssinjs';
-import { useParams } from 'react-router-dom';
 
 interface AddressData {
     id: string;
@@ -15,32 +14,13 @@ interface AddressData {
 }
 
 const Address: React.FC = () => {
-    const { id } = useParams<{ id?: string }>();
     const [form] = Form.useForm();
     const [address, setAddress] = useState<AddressData | null>(null);
     const [addresses, setAddresses] = useState<AddressData[]>([]);
+    const [componentDisabled, setComponentDisabled] = useState<boolean>(true);
 
     const token = localStorage.getItem('token');
-
-    const fetchAddresses = async (userId?: string) => {
-        if (!userId) {
-            return;
-        }
-
-        try {
-            const response = await axios.get<AddressData[]>(
-                `http://localhost:8080/api/v1/address?user_id=${userId}`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-            );
-            setAddresses(response.data);
-        } catch (error) {
-            console.error('Failed to fetch addresses:', error);
-        }
-    };
+    const id = localStorage.getItem('id') || ''; console.log(id)
 
     const fetchAddress = async (id: string | undefined) => {
         if (!id) {
@@ -48,7 +28,7 @@ const Address: React.FC = () => {
         }
 
         try {
-            const response = await axios.get<AddressData>(`http://localhost:8080/api/v1/address/${id}`, {
+            const response = await axios.get<AddressData>(`http://localhost:8080/api/v1/address/user/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -60,49 +40,95 @@ const Address: React.FC = () => {
     };
 
     useEffect(() => {
-        fetchAddresses(id);
         fetchAddress(id);
     }, [id]);
 
-    const handleSubmit = async (values: AddressData) => {
+    const createAddress = async (address: AddressData, userId: string) => {
         try {
-            await axios.post(`http://localhost:8080/api/v1/users/${id}/address`, values);
-            fetchAddresses(id);
+            const response = await axios.post('http://localhost:8080/api/v1/address', {...address, userId : userId}, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });console.log({...address, userId: userId});
+            message.success('Address created');
+            console.log('Address created:', response.data);
         } catch (error) {
-            console.error('Failed to save address:', error);
+            console.error('Failed to create address:', error);
         }
     };
 
-    if (!address) {
-        return <div>Loading...</div>;
-    }
+    const updateAddress = async (address: AddressData, userId: string) => {
+        try {
+            const response = await axios.put(`http://localhost:8080/api/v1/address/update/${address.id}`, {...address, userId: userId}, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            message.success('Address updated');
+            console.log('Address updated:', response.data);
+        } catch (error) {
+            console.error('Failed to update address:', error);
+        }
+    };
+
+
+    const handleSubmit = async (values: AddressData) => {
+        if (!address) {
+            createAddress(values, id);
+        } else {
+            updateAddress({ ...address, ...values }, id);
+        }
+    };
+
+    useEffect(() => {
+        if (address) {
+            form.setFieldsValue({
+                country: address.country,
+                city: address.city,
+                postalCode: address.postalCode,
+                street: address.street,
+                home: address.home,
+                apartment: address.apartment,
+            });
+        }
+    }, [address]);
+
 
     return (
-        <Form form={form} onFinish={handleSubmit}>
-            <Form.Item name="country" label="Country">
-                <Input />
-            </Form.Item>
-            <Form.Item name="city" label="City">
-                <Input />
-            </Form.Item>
-            <Form.Item name="postalCode" label="Postal Code">
-                <Input type="number" />
-            </Form.Item>
-            <Form.Item name="street" label="Street">
-                <Input />
-            </Form.Item>
-            <Form.Item name="home" label="House Number">
-                <Input type="number" />
-            </Form.Item>
-            <Form.Item name="apartment" label="Apartment Number">
-                <Input />
-            </Form.Item>
-            <Form.Item>
-                <Button type="primary" htmlType="submit">
-                    Save
-                </Button>
-            </Form.Item>
-        </Form>
+        <>
+            <Checkbox
+                checked={componentDisabled}
+                onChange={(e) => setComponentDisabled(e.target.checked)}
+            >
+                Form disabled
+            </Checkbox>
+            <Form disabled={componentDisabled} form={form} onFinish={handleSubmit}>
+                <Form.Item name="country" label="Country">
+                    <Input />
+                </Form.Item>
+                <Form.Item name="city" label="City">
+                    <Input />
+                </Form.Item>
+                <Form.Item name="postalCode" label="Postal Code">
+                    <Input type="number" />
+                </Form.Item>
+                <Form.Item name="street" label="Street">
+                    <Input />
+                </Form.Item>
+                <Form.Item name="home" label="House Number">
+                    <Input type="number" />
+                </Form.Item>
+                <Form.Item name="apartment" label="Apartment Number">
+                    <Input />
+                </Form.Item>
+                <Form.Item>
+                    <Button type="primary" htmlType="submit">
+                        Save
+                    </Button>
+                </Form.Item>
+            </Form>
+        </>
+
     );
 };
 

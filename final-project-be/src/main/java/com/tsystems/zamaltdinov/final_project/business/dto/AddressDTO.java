@@ -10,6 +10,7 @@ import java.util.UUID;
 
 public class AddressDTO implements Serializable {
     private UUID id;
+    private UUID userId;
 
     private String country;
 
@@ -33,6 +34,15 @@ public class AddressDTO implements Serializable {
     public void setId(UUID id) {
         this.id = id;
     }
+
+    public UUID getUserId() {
+        return userId;
+    }
+
+    public void setUserId(UUID userId) {
+        this.userId = userId;
+    }
+
     public String getCountry() {
         return country;
     }

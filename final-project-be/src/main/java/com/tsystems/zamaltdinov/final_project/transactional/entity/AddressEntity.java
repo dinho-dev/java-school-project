@@ -16,7 +16,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "address", schema = "store", catalog = "postgres")
 public class AddressEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     @Column(name = "id")
     private UUID id;
