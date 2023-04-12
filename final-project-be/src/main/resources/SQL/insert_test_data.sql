@@ -1,6 +1,6 @@
 INSERT INTO store.user (id, firstname, lastname, date_of_birth, email, password, role)
 VALUES ('aa5366f0-aa25-11ed-afa1-0242ac120002', 'John', 'Doe', '1990-01-01', 'admin@admin.com',
-        'admin', 'ADMIN'),
+        '$2a$11$alhzJH6PA55Fm4EHNS7U3uHOCF8M3VqfOr1xSLQKlLTEQqAySKrqq', 'ADMIN'),
        ('aa536f42-aa25-11ed-afa1-0242ac120002', 'Jane', 'Smith', '1992-03-05', 'janesmith@email.com',
         'password456', 'USER'),
        ('aa537104-aa25-11ed-afa1-0242ac120002', 'Jim', 'Brown', '1989-12-25', 'jimbrown@email.com',
@@ -18,7 +18,9 @@ VALUES ('aa5366f0-aa25-11ed-afa1-0242ac120002', 'John', 'Doe', '1990-01-01', 'ad
        ('aa537a6c-aa25-11ed-afa1-0242ac120002', 'David', 'Davis', '1999-01-25', 'daviddavis@email.com',
         'password512', 'USER'),
        ('aa537b8e-aa25-11ed-afa1-0242ac120002', 'Linda', 'Wilson', '1988-12-05', 'lindawilson@email.com',
-        'password831', 'USER');
+        'password831', 'USER'),
+       ('af8f5068-e68a-4243-b502-7171fef24165', 'Odin', 'Odindva', '1980-02-01', 'odin@gmail.com',
+        '$2a$10$f/KpRbftnLc7lFVyhRzQSeU.4KdNCkGnccprUh6/TbdxgjGEkORwy', 'USER');
 
 INSERT INTO store.address (id, user_id, country, city, postal_code, street, home, apartment)
 VALUES ('cdf71b60-aa25-11ed-afa1-0242ac120002', 'aa5366f0-aa25-11ed-afa1-0242ac120002', 'USA', 'New York', '10001',
@@ -75,14 +77,14 @@ VALUES ('44235aac-aa25-11ed-afa1-0242ac120002', 'aa5366f0-aa25-11ed-afa1-0242ac1
        ('44236326-aa25-11ed-afa1-0242ac120002', 'aa53756c-aa25-11ed-afa1-0242ac120002',
         'cdf7257a-aa25-11ed-afa1-0242ac120002', 'Cash', 'Pick-up', 'Pending', 'shipped', '2023-03-10'),
        ('4423641c-aa25-11ed-afa1-0242ac120002', 'aa5376a6-aa25-11ed-afa1-0242ac120002',
-        'cdf726c0-aa25-11ed-afa1-0242ac120002', 'By card', 'DHL', 'Paid', 'delivered', '2023-15-01'),
+        'cdf726c0-aa25-11ed-afa1-0242ac120002', 'By card', 'DHL', 'Paid', 'delivered', '2023-01-15'),
        ('4423650a-aa25-11ed-afa1-0242ac120002', 'aa53780c-aa25-11ed-afa1-0242ac120002',
-        'cdf72806-aa25-11ed-afa1-0242ac120002', 'Cash', 'Pick-up', 'Pending', 'shipped', '2023-18-01'),
+        'cdf72806-aa25-11ed-afa1-0242ac120002', 'Cash', 'Pick-up', 'Pending', 'shipped', '2023-01-18'),
        ('442365f0-aa25-11ed-afa1-0242ac120002', 'aa53792e-aa25-11ed-afa1-0242ac120002',
-        'cdf7294c-aa25-11ed-afa1-0242ac120002', 'By card', 'International', 'Pending', 'pending payment', '2023-20-01'),
+        'cdf7294c-aa25-11ed-afa1-0242ac120002', 'By card', 'International', 'Pending', 'pending payment', '2023-01-20'),
        ('442366d8-aa25-11ed-afa1-0242ac120002', 'aa537a6c-aa25-11ed-afa1-0242ac120002',
         'cdf72a92-aa25-11ed-afa1-0242ac120002', 'By card', 'DHL', 'Paid', 'delivered', '2023-03-24'),
-       ('442367c2-aa25-11ed-afa1-0242ac120002', 'aa537b8e-aa25-11ed-afa1-0242ac120002',
+       ('442367c2-aa25-11ed-afa1-0242ac120002', 'af8f5068-e68a-4243-b502-7171fef24165',
         'cdf72bd8-aa25-11ed-afa1-0242ac120002', 'By card', 'International', 'Paid', 'pending shipment', '2023-01-07');
 
 INSERT INTO store.category (id, name)
