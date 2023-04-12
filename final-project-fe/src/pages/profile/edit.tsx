@@ -67,7 +67,6 @@ interface UserValues {
     setLoading(false);
   };
 
-//todo: updating doesn't work correctly. it doesnt transfer role field
 
   return (
       <>
@@ -134,13 +133,6 @@ interface UserValues {
               >
                   <Input />
               </Form.Item>
-              <Form.Item
-                  label="Role"
-                  name={["role"]}
-              >
-                  <Input defaultValue="USER" />
-              </Form.Item>
-
               <Form.Item>
                   <Button type="primary" htmlType="submit" loading={loading}>Save</Button>
               </Form.Item>

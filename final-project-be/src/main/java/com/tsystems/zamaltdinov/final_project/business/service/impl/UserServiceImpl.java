@@ -40,7 +40,14 @@ public class UserServiceImpl implements UserService {
 
         if (userData.isPresent()) {
             User user_ = UserMapper.MAPPER.fromDTOToEntity(user);
-            repository.save(user_);
+            User existingUser =userData.get();
+            existingUser.setFirstname(user_.getFirstname());
+            existingUser.setLastname(user_.getLastname());
+            existingUser.setDateOfBirth(user_.getDateOfBirth());
+            existingUser.setEmail(user_.getEmail());
+            existingUser.setPassword(user_.getPassword());
+            existingUser.setFirstname(user_.getFirstname());
+            repository.save(existingUser);
             return Optional.of(UserMapper.MAPPER.fromEntityToDTO(user_));
         } else {
             return Optional.empty();
