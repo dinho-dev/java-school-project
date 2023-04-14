@@ -15,7 +15,20 @@ const LogoutButton = () => {
             console.error(error);
         }
     };
+    // log out when token expires
+    const checkTokenExpiration = () => {
+        const tokenExpiration = localStorage.getItem('tokenExpiration');
+        if (tokenExpiration) {
+            const currentTime = new Date().getTime();
+            const expirationTime = new Date(tokenExpiration).getTime();
+            if (currentTime > expirationTime) {
+                handleLogout();
+            }
+        }
+    };
+    // Check token expiration every 5 minutes
 
+    setInterval(checkTokenExpiration, 300000);
     return (
         <Button type="primary" onClick={handleLogout}>
             Logout
