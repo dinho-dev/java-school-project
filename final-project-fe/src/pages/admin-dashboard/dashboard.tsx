@@ -10,14 +10,13 @@ export function Dashboard() {
     return (
         <div>
             <Card
-                title="Dashboard"
-                extra={[
-                    <Button key="edit-user-info" onClick={CategoryList}>Edit</Button>,
-                ]}
+                title="Categories"
             >
                 <CategoryList/>
             </Card>
-            <Card title="Orders">
+            <Card
+                title="Orders"
+            >
                 <Orders/>
             </Card>
         </div>

@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useContext, useEffect, useState} from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import {Card, Button, Row, Col, Select, Slider, Input, message, Pagination, Badge, Modal} from "antd";
+import {Card, Button, Row, Col, Select, Slider, Input, message, Pagination, Badge, Modal, Form} from "antd";
 import Image from "antd/es/image";
 import {DeleteOutlined, EditOutlined, ShoppingCartOutlined} from "@ant-design/icons";
 import {Simulate} from "react-dom/test-utils";
@@ -41,10 +41,12 @@ const ProductListConst = () => {
         0,
         3000,
     ]);
-    const [selectedCategory, setSelectedCategory] = useState<number>(0);
     const [selectedWeight, setSelectedWeight] = useState<string>("");
     const [isAscending, setIsAscending] = useState<boolean>(true);
     const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+    const [selectedCategory, setSelectedCategory] = useState<number>(0);
+    const [categories, setCategories] = useState<{ id: number; categoryName: string }[]>([]);
+
     const sortProductsByWeight = (products: Product[]) => {
         const sortedProducts = [...products].sort((a, b) => {
             const weightA = parseFloat(a.weight.replace(/[^0-9.-]+/g, ""));
@@ -101,13 +103,9 @@ const ProductListConst = () => {
         setSelectedPriceRange(value);
     };
 
-    const handleCategoryChange = (value: number) => {
-        setSelectedCategory(value);
-    };
     const handleWeightChange = (value: string) => {
         setSelectedWeight(value);
     };
-
     const handleSortChange = () => {
         setIsAscending(!isAscending);
     };
@@ -125,6 +123,8 @@ const ProductListConst = () => {
         setFilteredProducts(filteredProducts);
         setSearchText(event.target.value);
     };
+
+    // delete product
     const token = localStorage.getItem('token');
     const handleDelete = async (id: string) => {
         Modal.confirm({
@@ -146,10 +146,25 @@ const ProductListConst = () => {
     };
 
 
+    // get all categories for mapping in category filter
+    useEffect(() => {
+        axios.get('http://localhost:8080/api/v1/categories')
+            .then(response => {
+                // set the categories in state
+                setCategories(response.data); console.log(response.data)
+            })
+            .catch(error => {
+                // handle error here
+                console.error(error);
+            });
+    }, []); // run once on component mount
+
+    function handleCategoryChange(value:number) {
+        setSelectedCategory(value);
+    }
 
 
-
-
+    // pagination
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(9);
 
@@ -160,11 +175,7 @@ const ProductListConst = () => {
 
 
 
-
-
-
-
-
+    //shopping cart implementation
     const [showCart, setShowCart] = useState<boolean>(false);
     const [cartItems, setCartItems] = useState<Product[]>([]);
 
@@ -195,7 +206,7 @@ const ProductListConst = () => {
         // Update the stored cart items in local storage
         localStorage.setItem("cartItems", JSON.stringify(updatedCartItems));
     };
-
+// todo fix bug if logged out or isle clicking remove doesnt remove
 
     useEffect(() => {
         const storedCartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
@@ -235,6 +246,9 @@ const ProductListConst = () => {
         );
     };
     const handleCheckoutClick = () => {
+
+        // добавить запрос на бэкэнд
+       /* пост запрос на добаление ордера create order*/
         // Navigate to the checkout page
         navigate('/checkout');
     };
@@ -267,17 +281,57 @@ const ProductListConst = () => {
                         </div>
                         <div className="cart-total">
                             <p>Total: ${getTotalPrice()}</p>
+
+
+
+
+{/*
+
+
+                            <Form layout="vertical" onFinish={onFinish} form={form}>
+                                <Form.Item
+                                    label="Category"
+                                    name={"categoryId"}
+                                    rules={[
+                                        {
+                                            required: true,
+                                        },
+                                    ]}
+                                >
+                                    <Select />
+                                </Form.Item>
+                                <Form.Item
+                                    label="Title"
+                                    name={["title"]}
+                                    rules={[
+                                        {
+                                            required: true,
+                                        },
+                                    ]}
+                                >
+                                    <Input />
+                                </Form.Item>
+                                <Form.Item>
+                                    <Button type="primary" htmlType="submit" loading={loading}>Save</Button>
+                                </Form.Item>
+                            </Form>
+
+
+
+
+
+*/}
+
+
                             <Button type="primary" onClick={handleCheckoutClick}>Proceed to checkout</Button>
                         </div>
                     </div>
                 )}
                 <Select defaultValue={selectedCategory} onChange={handleCategoryChange} style={{ width: 120 }}>
-                    <Option value={0}>All Categories</Option> //todo: handle new category creation
-                    <Option value={1}>Laptops</Option>
-                    <Option value={2}>Smartphones</Option>
-                    <Option value={3}>Headphones</Option>
-                    <Option value={4}>Smartwatches</Option>
-                    <Option value={5}>Gaming consoles</Option>
+                    <Option value={0}>All Categories</Option>
+                    {categories.map(category => (
+                        <Option key={category.id} value={category.id}>{category.categoryName}</Option>
+                    ))}
                 </Select>
                 <Select
                     defaultValue={sortOrder}

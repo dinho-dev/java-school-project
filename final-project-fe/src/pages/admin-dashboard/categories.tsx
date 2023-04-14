@@ -16,7 +16,7 @@ const CategoryList = () => {
     const [loading, setLoading] = useState(false);
 
 
-    // Fetch categories from backend on component mount
+    // Fetch categories from backend
     useEffect(() => {
         axios.get('http://localhost:8080/api/v1/categories')
             .then(res => setCategories(res.data))
@@ -81,7 +81,6 @@ const CategoryList = () => {
     ];
 
     // Handle category edit
-//todo: implement category edit
     // activated when click the edit button
     const [editingKey, setEditingKey] = useState('');
 
@@ -138,7 +137,6 @@ const CategoryList = () => {
             <Content>
                 <div style={{ padding: '24px', background: '#fff', minHeight: '360px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-                        <h2>Categories</h2>
                         <Button type="primary" onClick={() => setIsModalVisible(true)} icon={<PlusOutlined />}>
                             Create New Category
                         </Button>
