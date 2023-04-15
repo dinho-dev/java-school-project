@@ -74,7 +74,9 @@ public class OrderServiceImpl implements OrderService {
 
         if (orderData.isPresent()) {
             OrderEntity orderEntity = OrderMapper.MAPPER.fromDTOToEntity(order);
-            orderRepository.save(orderEntity);
+            OrderEntity existingOrder = orderData.get();
+            existingOrder.setOrderStatus(orderEntity.getOrderStatus());
+            orderRepository.save(existingOrder);
             return Optional.of(OrderMapper.MAPPER.fromEntityToDTO(orderEntity));
         } else {
             return Optional.empty();
@@ -119,9 +121,13 @@ public class OrderServiceImpl implements OrderService {
         orderDTO.setProducts(order.getProducts());
         return orderDTO;
     }
-    @Override
-    public Optional<OrderDTO> findByUserId(UUID userId) {
-        Optional<OrderEntity> orderEntity = orderRepository.findByUserId(userId);
-        return orderEntity.map(OrderMapper.MAPPER::fromEntityToDTO);
+    public List<OrderDTO> findAllByUserId(UUID userId) {
+        List<OrderEntity> orderEntities = orderRepository.findAllByUserId(userId);
+
+        List<OrderDTO> orderDTOs = new ArrayList<>();
+        for (OrderEntity orderEntity : orderEntities) {
+            orderDTOs.add(OrderMapper.MAPPER.fromEntityToDTO(orderEntity));
+        }
+        return orderDTOs;
     }
 }

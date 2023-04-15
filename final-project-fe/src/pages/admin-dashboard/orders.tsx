@@ -1,26 +1,33 @@
 import React, { useState, useEffect } from "react";
-import { Table, Tag, Select } from "antd";
+import {Table, Tag, Select, message, Button} from "antd";
 import axios from "axios";
 
 const { Option } = Select;
-
 type Order = {
     id: number;
-    customerName: string;
-    orderDate: string;
+    userId: string;
+    paymentMethod: string;
+    deliveryMethod: string;
+    payment_status: string;
+    orderStatus: string;
+    orderDate:string;
     totalAmount: number;
-    status: string;
 };
-
+const token = localStorage.getItem('token');
 const Orders: React.FC = () => {
     const [orders, setOrders] = useState<Order[]>([]);
-
+    const [editingOrderId, setEditingOrderId] = useState<number | null>(null);
+    const [editingOrderStatus, setEditingOrderStatus] = useState<string>("");
     useEffect(() => {
         fetchOrders();
     }, []);
 
     const fetchOrders = async () => {
-        const response = await axios.get("/api/v1/orders");
+        const response = await axios.get("http://localhost:8080/api/v1/orders",{
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
         setOrders(response.data);
     };
 
@@ -32,13 +39,23 @@ const Orders: React.FC = () => {
         },
         {
             title: "Customer Name",
-            dataIndex: "customerName",
-            key: "customerName",
+            dataIndex: "userId",
+            key: "userId",
         },
         {
             title: "Order Date",
             dataIndex: "orderDate",
             key: "orderDate",
+        },
+        {
+            title: "Payment method",
+            dataIndex: "paymentMethod",
+            key: "paymentMethod",
+        },
+        {
+            title: "Delivery method",
+            dataIndex: "deliveryMethod",
+            key: "deliveryMethod",
         },
         {
             title: "Total Amount",
@@ -47,21 +64,21 @@ const Orders: React.FC = () => {
         },
         {
             title: "Status",
-            dataIndex: "status",
-            key: "status",
+            dataIndex: "orderStatus",
+            key: "orderStatus",
             render: (status: string) => {
                 let color = "";
                 switch (status) {
-                    case "PAID":
+                    case "pending shipment":
                         color = "green";
                         break;
-                    case "PENDING":
+                    case "pending payment":
                         color = "orange";
                         break;
-                    case "SHIPPED":
+                    case "shipped":
                         color = "blue";
                         break;
-                    case "DELIVERED":
+                    case "delivered":
                         color = "purple";
                         break;
                     default:
@@ -73,27 +90,66 @@ const Orders: React.FC = () => {
         {
             title: "Action",
             key: "action",
-            render: (text: any, record: Order) => (
-                <Select
-                    defaultValue={record.status}
-                    style={{ width: 120 }}
-                    onChange={(value) => handleStatusChange(record.id, value)}
-                >
-                    <Option value="PAID">Paid</Option>
-                    <Option value="PENDING">Pending</Option>
-                    <Option value="SHIPPED">Shipped</Option>
-                    <Option value="DELIVERED">Delivered</Option>
-                </Select>
-            ),
+            render: (text: any, record: Order) => {
+                if (editingOrderId === record.id) {
+                    return (
+                        <>
+                            <Select
+                                value={editingOrderStatus}
+                                style={{ width: 120 }}
+                                onChange={(value) => setEditingOrderStatus(value)}
+                            >
+                                <Option value="pending shipment">Paid</Option>
+                                <Option value="pending payment">Pending</Option>
+                                <Option value="shipped">Shipped</Option>
+                                <Option value="delivered">Delivered</Option>
+                            </Select>
+                            <Button
+                                type="primary"
+                                onClick={() => handleSaveStatusChange(record.id)}
+                            >
+                                Save
+                            </Button>
+                            <Button onClick={() => handleCancelStatusChange()}>Cancel</Button>
+                        </>
+                    );
+                } else {
+                    return (
+                        <Button onClick={() => handleEditStatusChange(record)}>
+                            Edit
+                        </Button>
+                    );
+                }
+            },
         },
     ];
+    const handleEditStatusChange = (record: Order) => {
+        setEditingOrderId(record.id);
+        setEditingOrderStatus(record.orderStatus);
+    };
 
-    const handleStatusChange = async (orderId: number, status: string) => {
-        const response = await axios.put(`/api/orders/${orderId}`, { status });
+    const handleSaveStatusChange = async (orderId: number) => {
+        const response = await axios.put(
+            `http://localhost:8080/api/v1/orders/${orderId}`,
+            { orderStatus: editingOrderStatus },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
         if (response.status === 200) {
+            setEditingOrderId(null);
+            setEditingOrderStatus("");
             fetchOrders();
         }
     };
+
+    const handleCancelStatusChange = () => {
+        setEditingOrderId(null);
+        setEditingOrderStatus("");
+    };
+
 
     return <Table columns={columns} dataSource={orders} />;
 };

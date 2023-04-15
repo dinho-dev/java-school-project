@@ -2,6 +2,7 @@ package com.tsystems.zamaltdinov.final_project.business.service;
 
 import com.tsystems.zamaltdinov.final_project.business.dto.CreateOrderWithProductsDTO;
 import com.tsystems.zamaltdinov.final_project.business.dto.OrderDTO;
+import com.tsystems.zamaltdinov.final_project.transactional.entity.OrderEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +19,7 @@ public interface OrderService {
     OrderDTO save(OrderDTO order);
 
     List<OrderDTO> findAllOrders();
-    Optional<OrderDTO> findByUserId(UUID userId);
+    List<OrderDTO> findAllByUserId(UUID userId);
 
     OrderDTO createOrderWithProductsDTO(CreateOrderWithProductsDTO order);
 }

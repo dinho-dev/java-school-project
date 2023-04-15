@@ -11,6 +11,8 @@ import java.util.UUID;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
+
 @Entity
 @Table(name = "order", schema = "store", catalog = "postgres")
 public class OrderEntity {
@@ -25,19 +27,19 @@ public class OrderEntity {
     @Column(name = "address_id")
     private UUID addressId;
     @Basic
-    @Column(name = "payment_method", insertable=false, updatable=false)
+    @Column(name = "payment_method")
     private String paymentMethod;
     @Basic
-    @Column(name = "delivery_method", insertable=false, updatable=false)
+    @Column(name = "delivery_method")
     private String deliveryMethod;
     @Basic
-    @Column(name = "payment_status", insertable=false, updatable=false)
+    @Column(name = "payment_status")
     private String paymentStatus;
     @Basic
-    @Column(name = "order_status", insertable=false, updatable=false)
+    @Column(name = "order_status")
     private String orderStatus;
     @Basic
-    @Column(name = "order_date", insertable=false, updatable=false)
+    @Column(name = "order_date")
     private Date orderDate;
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", insertable=false, updatable=false)
@@ -46,75 +48,18 @@ public class OrderEntity {
     @JoinColumn(name = "address_id", referencedColumnName = "id", insertable=false, updatable=false)
     private AddressEntity addressByAddressId;
     @ManyToOne
-    @JoinColumn(name = "payment_method", referencedColumnName = "id")
+    @JoinColumn(name = "payment_method", referencedColumnName = "id", insertable=false, updatable=false)
     private PaymentMethodEntity paymentMethodByPaymentMethod;
     @ManyToOne
-    @JoinColumn(name = "delivery_method", referencedColumnName = "id")
+    @JoinColumn(name = "delivery_method", referencedColumnName = "id", insertable=false, updatable=false)
     private DeliveryMethodEntity deliveryMethodByDeliveryMethod;
     @ManyToOne
-    @JoinColumn(name = "payment_status", referencedColumnName = "id")
+    @JoinColumn(name = "payment_status", referencedColumnName = "id", insertable=false, updatable=false)
     private PaymentStatusEntity paymentStatusByPaymentStatus;
     @ManyToOne
-    @JoinColumn(name = "order_status", referencedColumnName = "id")
+    @JoinColumn(name = "order_status", referencedColumnName = "id", insertable=false, updatable=false)
     private OrderStatusEntity orderStatusByOrderStatus;
     @OneToMany(mappedBy = "orderByOrderId")
     private Collection<OrderProductEntity> orderProductsById;
 
-
-
-    public User getUserByUserId() {
-        return userByUserId;
-    }
-
-    public void setUserByUserId(User userByUserId) {
-        this.userByUserId = userByUserId;
-    }
-
-    public AddressEntity getAddressByAddressId() {
-        return addressByAddressId;
-    }
-
-    public void setAddressByAddressId(AddressEntity addressByAddressId) {
-        this.addressByAddressId = addressByAddressId;
-    }
-
-    public PaymentMethodEntity getPaymentMethodByPaymentMethod() {
-        return paymentMethodByPaymentMethod;
-    }
-
-    public void setPaymentMethodByPaymentMethod(PaymentMethodEntity paymentMethodByPaymentMethod) {
-        this.paymentMethodByPaymentMethod = paymentMethodByPaymentMethod;
-    }
-
-    public DeliveryMethodEntity getDeliveryMethodByDeliveryMethod() {
-        return deliveryMethodByDeliveryMethod;
-    }
-
-    public void setDeliveryMethodByDeliveryMethod(DeliveryMethodEntity deliveryMethodByDeliveryMethod) {
-        this.deliveryMethodByDeliveryMethod = deliveryMethodByDeliveryMethod;
-    }
-
-    public PaymentStatusEntity getPaymentStatusByPaymentStatus() {
-        return paymentStatusByPaymentStatus;
-    }
-
-    public void setPaymentStatusByPaymentStatus(PaymentStatusEntity paymentStatusByPaymentStatus) {
-        this.paymentStatusByPaymentStatus = paymentStatusByPaymentStatus;
-    }
-
-    public OrderStatusEntity getOrderStatusByOrderStatus() {
-        return orderStatusByOrderStatus;
-    }
-
-    public void setOrderStatusByOrderStatus(OrderStatusEntity orderStatusByOrderStatus) {
-        this.orderStatusByOrderStatus = orderStatusByOrderStatus;
-    }
-
-    public Collection<OrderProductEntity> getOrderProductsById() {
-        return orderProductsById;
-    }
-
-    public void setOrderProductsById(Collection<OrderProductEntity> orderProductsById) {
-        this.orderProductsById = orderProductsById;
-    }
 }

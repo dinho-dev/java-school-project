@@ -69,7 +69,7 @@ public class AuthenticationService {
                 .expired(false)
                 .revoked(false)
                 .build();
-        tokenRepository.save(token);
+        tokenRepository.save(token); //todo implement password update(bcrypt)
     }
 
     private void revokeAllUserTokens(User user) {

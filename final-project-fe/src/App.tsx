@@ -19,10 +19,54 @@ import EditProfileForm from "./pages/profile/edit";
 import {Profile} from "./pages/profile";
 import Address from "./pages/profile/address";
 import {Dashboard} from "./pages/admin-dashboard/dashboard";
-/*import {CheckoutPage} from "./pages/checkout";*/
-const { Header, Sider, Content } = Layout;
+import Checkout from "./pages/checkout/checkout";
+import axios from "axios";
 
+
+const { Header, Sider, Content } = Layout;
+export interface AddressData {
+    id: string;
+    country: string;
+    city: string;
+    postalCode: number;
+    street: string;
+    home: number;
+    apartment: string;
+}
 const App: React.FC = () => {
+
+    const [address, setAddress] = useState <AddressData> ({
+        id: "",
+        country: "",
+        city: "",
+        postalCode: 0,
+        street: "",
+        home: 0,
+        apartment: "",
+
+    });
+    const token = localStorage.getItem('token');
+    const id = localStorage.getItem('id') || ''; console.log(id)
+    /*React.useEffect(()=> {
+        const fetchAddress = async (id: string | undefined) => {
+            try {
+                const response = await axios.get<AddressData>(`http://localhost:8080/api/v1/address/user/${id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                const data = await response.data; console.log(data)
+                console.log(setAddress, "ajkajsdaoa")
+                setAddress(data);
+            } catch (error) {
+                console.error('Failed to fetch address:', error);
+            }
+        };
+        fetchAddress(id)
+    }, [])*/
+
+    //const [address, setAddress] = useState <any> (null);
+
     const [collapsed, setCollapsed] = useState(false);
     const {
         token: { colorBgContainer },
@@ -76,12 +120,12 @@ const App: React.FC = () => {
                 >
                     <Routes>
                         <Route path="/home" element={<Home />} />
-                        <Route path="/profile/" element={<Profile />} />
+                        <Route path="/profile/" element={<Profile address={address} setAddress={setAddress}/>} />
                         <Route path="/profile/edit/:id" element={<EditProfileForm />} />
-                        <Route path="/profile/address/:id" element={<Address />} />
+                        <Route path="/profile/address/:id" element={<Address address={address} setAddress={setAddress}/>} />
                         <Route path="/products" element={<ProductList />} />
                         <Route path="/dashboard" element={<Dashboard />} />
-                       {/* <Route path="/checkout" element={<CheckoutPage />} />*/}
+                        <Route path="/checkout" element={<Checkout address={address} setAddress={setAddress}/>} />
 
                         <Route path="/register" element={<RegistrationForm />} />
                         <Route path="/login" element={<Login />} />

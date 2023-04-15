@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.tsystems.zamaltdinov.final_project.business.dto.AddressDTO;
 import com.tsystems.zamaltdinov.final_project.business.dto.CreateOrderWithProductsDTO;
 import com.tsystems.zamaltdinov.final_project.business.dto.OrderDTO;
 import com.tsystems.zamaltdinov.final_project.business.service.OrderService;
@@ -52,6 +53,12 @@ public class OrderController {
         }
     }
 
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<OrderDTO>> findByUserId(@PathVariable("id") UUID id) {
+        List<OrderDTO> orders = orderService.findAllByUserId(id);
+        return ResponseEntity.ok(orders);
+    }
+
     @PostMapping
     public ResponseEntity<OrderDTO> createOrder(@RequestBody OrderDTO order) {
         try {
@@ -64,8 +71,8 @@ public class OrderController {
 
     @PutMapping("/{id}")
     public ResponseEntity<OrderDTO> updateOrder(@PathVariable("id") UUID id, @RequestBody OrderDTO order) {
-        Optional<OrderDTO> orderData = orderService
-                .update(id, order);
+        order.setId(id);
+        Optional<OrderDTO> orderData = orderService.update(id, order);
 
         if (orderData.isPresent()) {
             return new ResponseEntity<>(orderData.get(), HttpStatus.OK);
@@ -83,4 +90,5 @@ public class OrderController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 }

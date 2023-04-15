@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import {Form, Input, Button, message, Checkbox} from 'antd';
 import axios from 'axios';
 import '@ant-design/cssinjs';
+import {AddressData} from "../../App";
 
-interface AddressData {
+/*export interface AddressData {
     id: string;
     country: string;
     city: string;
@@ -11,12 +12,17 @@ interface AddressData {
     street: string;
     home: number;
     apartment: string;
+}*/
+export interface PropsInterface {
+    address:  AddressData,
+    setAddress:  (address:AddressData)=>void
 }
 
-const Address: React.FC = () => {
+
+const Address = ({address, setAddress}) => {
     const [form] = Form.useForm();
-    const [address, setAddress] = useState<AddressData | null>(null);
-    const [addresses, setAddresses] = useState<AddressData[]>([]);
+    //const [address, setAddress] = useState<AddressData | null>(null);
+   /* const [addresses, setAddresses] = useState<AddressData[]>([]);*/
     const [componentDisabled, setComponentDisabled] = useState<boolean>(true);
 
     const token = localStorage.getItem('token');
@@ -33,11 +39,15 @@ const Address: React.FC = () => {
                     Authorization: `Bearer ${token}`
                 }
             });
-            setAddress(response.data);
+
+            const data = await response.data; console.log(data)
+            console.log(setAddress, "ajkajsdaoa")
+            setAddress(data);
         } catch (error) {
             console.error('Failed to fetch address:', error);
         }
     };
+
 
     useEffect(() => {
         fetchAddress(id);
@@ -73,11 +83,16 @@ const Address: React.FC = () => {
 
 
     const handleSubmit = async (values: AddressData) => {
+        console.log(values)
+        setAddress(values)
         if (!address) {
             createAddress(values, id);
         } else {
             updateAddress({ ...address, ...values }, id);
         }
+/*        if (address) {
+            onSelect(address.id);
+        }*/
     };
 
     useEffect(() => {
@@ -102,7 +117,7 @@ const Address: React.FC = () => {
             >
                 Form disabled
             </Checkbox>
-            <Form disabled={componentDisabled} form={form} onFinish={handleSubmit}>
+            <Form disabled={componentDisabled} form={form} onFinish={handleSubmit} initialValues={address}>
                 <Form.Item name="country" label="Country">
                     <Input />
                 </Form.Item>
