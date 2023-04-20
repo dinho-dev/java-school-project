@@ -116,20 +116,20 @@ VALUES ('4e4ffcfe-aa27-11ed-afa1-0242ac120002', 'Apple MacBook Pro', 1500, 1, '1
        ('4e500b46-aa27-11ed-afa1-0242ac120002', 'Google Pixel 6', 700, 2, '6.4 inch, 128GB, 5G',
         '0.207kg', '6.3x2.9x0.3 in', '30', 'https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71SGl7xwR-L._AC_SS450_.jpg');
 
-INSERT INTO store.order_product (order_id, product_id)
-VALUES ('44235aac-aa25-11ed-afa1-0242ac120002', '4e4ffcfe-aa27-11ed-afa1-0242ac120002'),
-       ('44235aac-aa25-11ed-afa1-0242ac120002', '4e50033a-aa27-11ed-afa1-0242ac120002'),
-       ('44235f3e-aa25-11ed-afa1-0242ac120002', '4e500b46-aa27-11ed-afa1-0242ac120002'),
-        ('44235aac-aa25-11ed-afa1-0242ac120002', '4e5009f8-aa27-11ed-afa1-0242ac120002'),
-       ('44235f3e-aa25-11ed-afa1-0242ac120002', '4e5008aa-aa27-11ed-afa1-0242ac120002'),
-       ('44236056-aa25-11ed-afa1-0242ac120002', '4e500742-aa27-11ed-afa1-0242ac120002'),
-       ('44236212-aa25-11ed-afa1-0242ac120002', '4e5005f8-aa27-11ed-afa1-0242ac120002'),
-        ('44236212-aa25-11ed-afa1-0242ac120002', '4e5004a6-aa27-11ed-afa1-0242ac120002'),
-        ('44236212-aa25-11ed-afa1-0242ac120002', '4e50033a-aa27-11ed-afa1-0242ac120002'),
-       ('44236326-aa25-11ed-afa1-0242ac120002', '4e5004a6-aa27-11ed-afa1-0242ac120002'),
-       ('4423641c-aa25-11ed-afa1-0242ac120002', '4e5001ea-aa27-11ed-afa1-0242ac120002'),
-       ('4423650a-aa25-11ed-afa1-0242ac120002', '4e5005f8-aa27-11ed-afa1-0242ac120002'),
-       ('442365f0-aa25-11ed-afa1-0242ac120002', '4e500742-aa27-11ed-afa1-0242ac120002'),
-       ('442366d8-aa25-11ed-afa1-0242ac120002', '4e5008aa-aa27-11ed-afa1-0242ac120002'),
-       ('442367c2-aa25-11ed-afa1-0242ac120002', '4e50033a-aa27-11ed-afa1-0242ac120002');
+INSERT INTO store.order_product (order_id, product_id, quantity)
+VALUES ('44235aac-aa25-11ed-afa1-0242ac120002', '4e4ffcfe-aa27-11ed-afa1-0242ac120002', 4),
+       ('44235aac-aa25-11ed-afa1-0242ac120002', '4e50033a-aa27-11ed-afa1-0242ac120002', 1),
+       ('44235f3e-aa25-11ed-afa1-0242ac120002', '4e500b46-aa27-11ed-afa1-0242ac120002', 2),
+        ('44235aac-aa25-11ed-afa1-0242ac120002', '4e5009f8-aa27-11ed-afa1-0242ac120002',3),
+       ('44235f3e-aa25-11ed-afa1-0242ac120002', '4e5008aa-aa27-11ed-afa1-0242ac120002', 5),
+       ('44236056-aa25-11ed-afa1-0242ac120002', '4e500742-aa27-11ed-afa1-0242ac120002', 6),
+       ('44236212-aa25-11ed-afa1-0242ac120002', '4e5005f8-aa27-11ed-afa1-0242ac120002', 1),
+        ('44236212-aa25-11ed-afa1-0242ac120002', '4e5004a6-aa27-11ed-afa1-0242ac120002', 2),
+        ('44236212-aa25-11ed-afa1-0242ac120002', '4e50033a-aa27-11ed-afa1-0242ac120002', 2),
+       ('44236326-aa25-11ed-afa1-0242ac120002', '4e5004a6-aa27-11ed-afa1-0242ac120002', 3),
+       ('4423641c-aa25-11ed-afa1-0242ac120002', '4e5001ea-aa27-11ed-afa1-0242ac120002', 1),
+       ('4423650a-aa25-11ed-afa1-0242ac120002', '4e5005f8-aa27-11ed-afa1-0242ac120002', 5),
+       ('442365f0-aa25-11ed-afa1-0242ac120002', '4e500742-aa27-11ed-afa1-0242ac120002', 2),
+       ('442366d8-aa25-11ed-afa1-0242ac120002', '4e5008aa-aa27-11ed-afa1-0242ac120002', 1),
+       ('442367c2-aa25-11ed-afa1-0242ac120002', '4e50033a-aa27-11ed-afa1-0242ac120002', 1);
 

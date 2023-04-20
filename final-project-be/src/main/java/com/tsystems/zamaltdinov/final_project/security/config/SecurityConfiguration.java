@@ -31,7 +31,7 @@ public class SecurityConfiguration {
                 .disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/api/v1/auth/**", "/api/v1/products/**","/api/v1/categories","/api/v1/address").permitAll()
-                .requestMatchers("/api/v1/products/create**","/api/v1/products/delete**","/api/v1/products/update**","/api/v1/categories/update**").hasRole("ADMIN")
+                .requestMatchers("/api/v1/products/create**","/api/v1/products/delete**","/api/v1/products/update**","/api/v1/categories/update**", "api/v1/sales**").hasRole("ADMIN")
                 .requestMatchers("/api/v1/users**","/api/v1/address/update**", "/api/v1/orders/user**").hasRole("USER")
                 .anyRequest()
                 .authenticated()

@@ -45,27 +45,6 @@ const App: React.FC = () => {
         apartment: "",
 
     });
-    const token = localStorage.getItem('token');
-    const id = localStorage.getItem('id') || ''; console.log(id)
-    /*React.useEffect(()=> {
-        const fetchAddress = async (id: string | undefined) => {
-            try {
-                const response = await axios.get<AddressData>(`http://localhost:8080/api/v1/address/user/${id}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
-                const data = await response.data; console.log(data)
-                console.log(setAddress, "ajkajsdaoa")
-                setAddress(data);
-            } catch (error) {
-                console.error('Failed to fetch address:', error);
-            }
-        };
-        fetchAddress(id)
-    }, [])*/
-
-    //const [address, setAddress] = useState <any> (null);
 
     const [collapsed, setCollapsed] = useState(false);
     const {

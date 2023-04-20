@@ -92,6 +92,7 @@ CREATE TABLE store.order_product
 (
     order_id uuid,
     product_id uuid,
+    quantity int,
     FOREIGN KEY (order_id) REFERENCES store.order(id),
     FOREIGN KEY (product_id) REFERENCES store.product(id),
     PRIMARY KEY (order_id, product_id)

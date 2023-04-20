@@ -123,7 +123,6 @@ const ProductListConst = () => {
         setFilteredProducts(filteredProducts);
         setSearchText(event.target.value);
     };
-
     // delete product
     const token = localStorage.getItem('token');
     const handleDelete = async (id: string) => {
@@ -220,8 +219,6 @@ const ProductListConst = () => {
     const totalQuantity = cartItems.reduce((total, item) => total + item.quantity, 0);
 
 
-
-
     interface CartItemProps { // 3
         item: Product;
         removeFromCart: (productId: string) => void;
@@ -281,48 +278,6 @@ const ProductListConst = () => {
                         </div>
                         <div className="cart-total">
                             <p>Total: ${getTotalPrice()}</p>
-
-
-
-
-{/*
-
-
-                            <Form layout="vertical" onFinish={onFinish} form={form}>
-                                <Form.Item
-                                    label="Category"
-                                    name={"categoryId"}
-                                    rules={[
-                                        {
-                                            required: true,
-                                        },
-                                    ]}
-                                >
-                                    <Select />
-                                </Form.Item>
-                                <Form.Item
-                                    label="Title"
-                                    name={["title"]}
-                                    rules={[
-                                        {
-                                            required: true,
-                                        },
-                                    ]}
-                                >
-                                    <Input />
-                                </Form.Item>
-                                <Form.Item>
-                                    <Button type="primary" htmlType="submit" loading={loading}>Save</Button>
-                                </Form.Item>
-                            </Form>
-
-
-
-
-
-*/}
-
-
                             <Button type="primary" onClick={handleCheckoutClick}>Proceed to checkout</Button>
                         </div>
                     </div>
