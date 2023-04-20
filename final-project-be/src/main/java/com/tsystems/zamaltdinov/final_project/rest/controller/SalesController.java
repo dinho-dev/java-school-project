@@ -1,6 +1,5 @@
 package com.tsystems.zamaltdinov.final_project.rest.controller;
 
-import com.tsystems.zamaltdinov.final_project.business.dto.MonthlyRevenueDTO;
 import com.tsystems.zamaltdinov.final_project.business.dto.ProductSalesDTO;
 import com.tsystems.zamaltdinov.final_project.business.dto.TopCustomerDTO;
 import com.tsystems.zamaltdinov.final_project.business.dto.WeeklyRevenueDTO;
@@ -30,12 +29,6 @@ public class SalesController {
         return statisticsService.getTopCustomers();
     }
 
-    @GetMapping("/monthly-revenue")
-    public ResponseEntity<List<MonthlyRevenueDTO>> getMonthlyRevenue() {
-        List<MonthlyRevenueDTO> monthlyRevenue = statisticsService.getMonthlyRevenue();
-
-        return ResponseEntity.ok(monthlyRevenue);
-    }
 
     @GetMapping("/weekly-revenue")
     public ResponseEntity<List<WeeklyRevenueDTO>> getWeeklyRevenue() {

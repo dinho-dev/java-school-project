@@ -1,6 +1,5 @@
 package com.tsystems.zamaltdinov.final_project.business.service;
 
-import com.tsystems.zamaltdinov.final_project.business.dto.MonthlyRevenueDTO;
 import com.tsystems.zamaltdinov.final_project.business.dto.ProductSalesDTO;
 import com.tsystems.zamaltdinov.final_project.business.dto.TopCustomerDTO;
 import com.tsystems.zamaltdinov.final_project.business.dto.WeeklyRevenueDTO;
@@ -54,23 +53,6 @@ public class StatisticsService {
             BigDecimal totalPurchase = rs.getBigDecimal("total_purchase");
 
             return new TopCustomerDTO(firstname, lastname, totalPurchase);
-        });
-    }
-
-    public List<MonthlyRevenueDTO> getMonthlyRevenue() {
-        String sql = "SELECT to_char(o.order_date, 'YYYY-MM') as month, SUM(p.price * op.quantity) as revenue " +
-                "FROM store.order o " +
-                "JOIN store.order_product op ON o.id = op.order_id " +
-                "JOIN store.product p ON op.product_id = p.id " +
-                "WHERE o.order_status = 'completed' " +
-                "GROUP BY month " +
-                "ORDER BY month ASC";
-
-        return jdbcTemplate.query(sql, (rs, rowNum) -> {
-            String month = rs.getString("month");
-            BigDecimal revenue = rs.getBigDecimal("revenue");
-
-            return new MonthlyRevenueDTO(month, revenue);
         });
     }
 
