@@ -38,7 +38,7 @@ const CreateProductForm = () => {
         }
         setLoading(false);
     };
-
+//todo add select category for product creation
     return (
         <Form layout="vertical" onFinish={onFinish} form={form}> {/* add form={form} */}
             <Form.Item

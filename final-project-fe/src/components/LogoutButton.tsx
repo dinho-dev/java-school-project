@@ -9,7 +9,7 @@ const LogoutButton = () => {
             await axios.post('http://localhost:8080/api/v1/auth/logout');
             localStorage.removeItem('token');
             localStorage.removeItem('role');
-            navigate('/product')
+            navigate('/products')
             window.location.reload();
         } catch (error) {
             console.error(error);
