@@ -85,7 +85,8 @@ const Address = ({address, setAddress}) => {
     const handleSubmit = async (values: AddressData) => {
         console.log(values)
         setAddress(values)
-        if (!address) {
+        // TODO !address -> !address.id
+        if (!address.id) {
             createAddress(values, id);
         } else {
             updateAddress({ ...address, ...values }, id);

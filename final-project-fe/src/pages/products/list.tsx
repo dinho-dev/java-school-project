@@ -7,7 +7,7 @@ import {DeleteOutlined, EditOutlined, ShoppingCartOutlined} from "@ant-design/ic
 import {Simulate} from "react-dom/test-utils";
 import error = Simulate.error;
 
-interface Product {
+export interface Product {
     id: string;
     categoryId: number;
     title: string;

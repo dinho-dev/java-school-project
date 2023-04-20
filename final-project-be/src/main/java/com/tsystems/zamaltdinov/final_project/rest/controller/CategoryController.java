@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import com.tsystems.zamaltdinov.final_project.business.dto.CategoryDTO;
 import com.tsystems.zamaltdinov.final_project.business.service.CategoryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/categories")
 public class CategoryController {
+
+    Logger logger = LoggerFactory.getLogger(CategoryController.class);
+
     @Autowired
     CategoryService categoryService;
 
@@ -34,6 +39,7 @@ public class CategoryController {
 
     @PostMapping("")
     public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO category) {
+        logger.info("category created", category);
         try {
             CategoryDTO _category = categoryService.save(category);
             return new ResponseEntity<>(_category, HttpStatus.CREATED);

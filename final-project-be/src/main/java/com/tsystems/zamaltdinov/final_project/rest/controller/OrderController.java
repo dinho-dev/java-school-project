@@ -8,6 +8,8 @@ import com.tsystems.zamaltdinov.final_project.business.dto.AddressDTO;
 import com.tsystems.zamaltdinov.final_project.business.dto.CreateOrderWithProductsDTO;
 import com.tsystems.zamaltdinov.final_project.business.dto.OrderDTO;
 import com.tsystems.zamaltdinov.final_project.business.service.OrderService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/orders")
 public class OrderController {
+
+    // TODO When you copy logger, change OrderController.class to the class where you use it
+    Logger logger = LoggerFactory.getLogger(OrderController.class);
+
     @Autowired
     OrderService orderService;
 
@@ -33,15 +39,6 @@ public class OrderController {
         return orderService.findAllOrders();
     }
 
-    @PostMapping("/create-with-products")
-    public ResponseEntity<OrderDTO> createOrderWithProducts(@RequestBody CreateOrderWithProductsDTO order) {
-        try {
-            OrderDTO _order = orderService.createOrderWithProductsDTO(order);
-            return new ResponseEntity<>(_order, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
     @GetMapping("/{id}")
     public ResponseEntity<OrderDTO> getOrderById(@PathVariable("id") UUID id) {
         Optional<OrderDTO> orderData = orderService.findById(id);
@@ -62,9 +59,12 @@ public class OrderController {
     @PostMapping
     public ResponseEntity<OrderDTO> createOrder(@RequestBody OrderDTO order) {
         try {
+            logger.info("order created with {} products", order.getProducts().size());
+            // TODO add logger in other services/controllers
             OrderDTO _client = orderService.save(order);
             return new ResponseEntity<>(_client, HttpStatus.CREATED);
         } catch (Exception e) {
+            logger.error("order creation failed", e);
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

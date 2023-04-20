@@ -15,10 +15,7 @@ import com.tsystems.zamaltdinov.final_project.transactional.repository.ProductRe
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -87,7 +84,31 @@ public class OrderServiceImpl implements OrderService {
     public OrderDTO save(OrderDTO order) {
         OrderEntity orderEntity = OrderMapper.MAPPER.fromDTOToEntity(order);
         orderRepository.save(orderEntity);
-        return OrderMapper.MAPPER.fromEntityToDTO(orderEntity);
+
+
+        List<UUID> productIDs = new ArrayList<>();
+        order.getProducts().forEach( productDTO ->
+                productIDs.add(productDTO.getId())
+        );
+        List<ProductEntity> products = productRepository.findAllById(productIDs);
+
+        Collection<OrderProductEntity> orderProducts = new ArrayList<>();
+        for (ProductEntity p : products  ) {
+            OrderProductEntity productsOrder = new OrderProductEntity();
+            productsOrder.setOrderId(orderEntity.getId());
+            productsOrder.setProductId(p.getId());
+
+
+            orderProductRepository.save(productsOrder);
+            orderProducts.add(productsOrder);
+        }
+
+        orderEntity.setOrderProductsById(orderProducts);
+        orderRepository.save(orderEntity);
+
+        OrderDTO savedDto =  OrderMapper.MAPPER.fromEntityToDTO(orderEntity);
+        savedDto.setProducts(order.getProducts());
+        return savedDto;
     }
 
     @Override
@@ -95,7 +116,21 @@ public class OrderServiceImpl implements OrderService {
         List<OrderEntity> orders = orderRepository.findAll();
         List<OrderDTO> result = new ArrayList<>();
         for (OrderEntity order : orders) {
-            result.add(OrderMapper.MAPPER.fromEntityToDTO(order));
+            List<UUID> productIDs = new ArrayList<>();
+            order.getOrderProductsById().forEach(orderProductEntity -> {
+                productIDs.add(orderProductEntity.getProductId());
+            });
+
+            List<ProductEntity> products = productRepository.findAllById(productIDs);
+            List<ProductDTO> productDTOs = new ArrayList<>();
+            products.forEach(productEntity -> {
+                productDTOs.add(ProductMapper.MAPPER.fromEntityToDTO(productEntity));
+            });
+
+            OrderDTO orderDTO = OrderMapper.MAPPER.fromEntityToDTO(order);
+            orderDTO.setProducts(productDTOs);
+
+            result.add(orderDTO);
         }
         return result;
 
@@ -111,8 +146,8 @@ public class OrderServiceImpl implements OrderService {
         List<OrderProductEntity> orderProductEntities = new ArrayList<>();
         order.getProducts().forEach(productDTO -> {
             OrderProductEntity orderProductEntity = new OrderProductEntity();
-            orderProductEntity.setOrderId(savedOrder.getId());
-            orderProductEntity.setProductId(productDTO.getId());
+            // orderProductEntity.setOrderId(savedOrder.getId());
+            // orderProductEntity.setProductId(productDTO.getId());
             orderProductEntities.add(orderProductEntity);
         });
         orderProductRepository.saveAll(orderProductEntities);
@@ -126,7 +161,21 @@ public class OrderServiceImpl implements OrderService {
 
         List<OrderDTO> orderDTOs = new ArrayList<>();
         for (OrderEntity orderEntity : orderEntities) {
-            orderDTOs.add(OrderMapper.MAPPER.fromEntityToDTO(orderEntity));
+            List<UUID> productIDs = new ArrayList<>();
+            orderEntity.getOrderProductsById().forEach(orderProductEntity -> {
+                productIDs.add(orderProductEntity.getProductId());
+            });
+
+            List<ProductEntity> products = productRepository.findAllById(productIDs);
+            List<ProductDTO> productDTOs = new ArrayList<>();
+            products.forEach(productEntity -> {
+                productDTOs.add(ProductMapper.MAPPER.fromEntityToDTO(productEntity));
+            });
+
+            OrderDTO orderDTO = OrderMapper.MAPPER.fromEntityToDTO(orderEntity);
+            orderDTO.setProducts(productDTOs);
+
+            orderDTOs.add(orderDTO);
         }
         return orderDTOs;
     }

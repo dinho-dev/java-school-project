@@ -37,11 +37,12 @@ const CheckoutForm = ({address, setAddress}:PropsInterface) => {
     }, [id]);
     const handleSubmit = (values: any, addressId: string | null) => {
         const token = localStorage.getItem("token");
-        const userId = localStorage.getItem("id"); console.log(userId)
+        const userId = localStorage.getItem("id");
+        console.log(userId);
         const config = {
             headers: { Authorization: `Bearer ${token}` },
         };
-
+        const storedCartItems = JSON.parse(localStorage.getItem("cartItems") || "[]");
         axios
             .post(
                 "http://localhost:8080/api/v1/orders",
@@ -50,6 +51,7 @@ const CheckoutForm = ({address, setAddress}:PropsInterface) => {
                     addressId: addressId,
                     userId: userId,
                     orderDate: new Date().toISOString(),
+                    products: storedCartItems,
                 },
                 config
             )

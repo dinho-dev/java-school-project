@@ -8,11 +8,11 @@ import java.util.UUID;
 @Table(name = "order_product", schema = "store", catalog = "postgres")
 @IdClass(OrderProductEntityPK.class)
 public class OrderProductEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "order_id")
     private UUID orderId;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "product_id")
     private UUID productId;
@@ -73,5 +73,10 @@ public class OrderProductEntity {
 
     public void setProductByProductId(ProductEntity productByProductId) {
         this.productByProductId = productByProductId;
+    }
+
+    @Override
+    public String toString() {
+        return "order: " + this.orderId.toString() + ", product: " + this.productId.toString();
     }
 }

@@ -11,11 +11,11 @@ import java.util.UUID;
 public class OrderProductEntityPK implements Serializable {
     @Column(name = "order_id")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID orderId;
     @Column(name = "product_id")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID productId;
 
     public UUID getOrderId() {
