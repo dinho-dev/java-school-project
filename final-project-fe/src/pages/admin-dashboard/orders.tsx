@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {Table, Tag, Select, message, Button} from "antd";
 import axios from "axios";
+import {Product} from "../products/list";
 
 const { Option } = Select;
 type Order = {
@@ -11,7 +12,7 @@ type Order = {
     payment_status: string;
     orderStatus: string;
     orderDate:string;
-    totalAmount: number;
+    products: Product[];
 };
 const token = localStorage.getItem('token');
 const Orders: React.FC = () => {
@@ -58,9 +59,36 @@ const Orders: React.FC = () => {
             key: "deliveryMethod",
         },
         {
-            title: "Total Amount",
-            dataIndex: "totalAmount",
-            key: "totalAmount",
+            title:"Total Amount",
+            dataIndex:"products",
+            key:"products",
+            render:(products: Product[]) => {
+                let total = 0;
+
+                if (products == null || products.length == 0) {
+                    return <p>{total} EUR</p>;
+                }
+                products.forEach(p => {
+                    total += p.price
+                })
+                return <p>{total} EUR</p>;
+            }
+        },
+        {
+            title:"Products",
+            dataIndex:"products",
+            key:"products",
+            render:(products: Product[]) => {
+                let names: string[] = [];
+
+                if (products == null || products.length == 0) {
+                    return <p>{"No products"}</p>;
+                }
+                products.forEach(p => {
+                    names.push(p.title)
+                })
+                return <p>{names.join(", ")}</p>;
+            }
         },
         {
             title: "Status",

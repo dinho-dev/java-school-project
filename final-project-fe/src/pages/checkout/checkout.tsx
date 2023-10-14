@@ -56,7 +56,7 @@ const CheckoutForm = ({address, setAddress}:PropsInterface) => {
                 config
             )
             .then(() => {
-                // TODO remove cart, because we made an order
+                // TODO remove cart
                 localStorage.removeItem('cartItems');
                 message.success("Order placed successfully");
             })

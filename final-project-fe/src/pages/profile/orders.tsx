@@ -98,7 +98,6 @@ const UserOrders: React.FC = () => {
                 key="products"
 
                 render={(products: Product[]) => {
-                        // TODO Show product list within Order. Copy this to admin user
                         let names: string[] = [];
 
                         if (products == null || products.length == 0) {
